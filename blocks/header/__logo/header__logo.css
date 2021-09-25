@@ -1,7 +1,18 @@
 .header__logo {
-  transition: opacity .3s linear;
+  width: 142px;
+  height: 33px;
 }
 
-.header__logo:hover {
-  opacity: .6;
+@media all and (max-width: 916px) {
+  .header__logo {
+    margin-left: 19px;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .header__logo {
+    width: 103.74px;
+    height: 24.4px;
+    margin-left: 27px;
+  }
 }

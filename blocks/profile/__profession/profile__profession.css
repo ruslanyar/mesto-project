@@ -4,4 +4,14 @@
   font-weight: 400;
   color: #fff;
   margin: 0;
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+@media screen and (max-width: 580px) {
+  .profile__profession {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
 }

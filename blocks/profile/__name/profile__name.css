@@ -4,5 +4,14 @@
   font-weight: 500;
   color: #fff;
   margin: 0;
-  padding-bottom: 16px;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+@media screen and (max-width: 580px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 32.68px;
+    text-align: center;
+  }
 }
