@@ -12,3 +12,9 @@
     margin-bottom: 36px;
   }
 }
+
+@media all and (max-width: 425px) {
+  .profile__info {
+    grid-template-columns: minmax(min-content, max-content);
+  }
+}
