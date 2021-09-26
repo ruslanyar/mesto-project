@@ -4,17 +4,11 @@
   gap: 16px 18px;
 }
 
-@media all and (max-width: 580px) {
+@media all and (max-width: 616px) {
   .profile__info {
     gap: 14px 10px;
     position: relative;
     left: 14px;
     margin-bottom: 36px;
-  }
-}
-
-@media all and (max-width: 425px) {
-  .profile__info {
-    grid-template-columns: minmax(min-content, max-content);
   }
 }

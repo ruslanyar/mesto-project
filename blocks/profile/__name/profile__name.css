@@ -9,7 +9,7 @@
   /* word-break: break-all; */
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 616px) {
   .profile__name {
     font-size: 27px;
     line-height: 32.68px;
