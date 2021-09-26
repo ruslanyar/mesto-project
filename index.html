@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="ruslanyar">
   <title>Mesto</title>
   <link rel="stylesheet" href="pages/index.css">
 </head>
@@ -19,7 +22,7 @@
     <section class="profile page__profile">
       <img src="images/avatar.jpg" alt="жак-ив кусто" class="profile__avatar">
       <div class="profile__info">
-        <p class="profile__name">Жак-Ив Кусто</p>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-button"></button>
         <p class="profile__profession">Исследователь океана</p>
       </div>
@@ -89,5 +92,15 @@
   <footer class="footer page__footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+  <!-- Popup -->
+  <div class="popup popup_opened">
+    <form class="popup__container">
+      <p class="popup__text">Редактировать профиль</p>
+      <input type="text" value="Жак-Ив Кусто" required class="popup__input-text">
+      <input type="text" value="Исследователь океана" required class="popup__input-text">
+      <button type="submit" class="popup__submit-button">Сохранить</button>
+      <button type="button" class="popup__close-button"></button>
+    </form>
+  </div>
 </body>
 </html>
