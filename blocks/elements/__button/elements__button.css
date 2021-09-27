@@ -1,7 +1,7 @@
 .elements__button {
   width: 22px;
   height: 19px;
-  background-color: #fff;
+  background-color: transparent;
   background-image: url('../../../images/heart_disabled.svg');
   background-size: 22px 19px;
   background-position: center;

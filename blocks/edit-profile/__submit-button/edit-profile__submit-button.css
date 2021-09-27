@@ -1,4 +1,4 @@
-.popup__submit-button {
+.edit-profile__submit-button {
   width: 358px;
   height: 50px;
   background-color: #000;
@@ -9,21 +9,22 @@
   color: #fff;
   border-radius: 2px;
   border: none;
-  margin: 0;
+  margin: 0 0 37px;
   padding: 0;
   cursor: pointer;
   transition: opacity .3s linear;
 }
 
-.popup__submit-button:hover {
+.edit-profile__submit-button:hover {
   opacity: .8;
 }
 
 @media all and (max-width: 580px) {
-  .popup__submit-button {
+  .edit-profile__submit-button {
     width: 238px;
     height: 46px;
     font-size: 14px;
     line-height: 16.94px;
+    margin-bottom: 25px;
   }
 }

@@ -1,0 +1,12 @@
+.edit-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 430px;
+}
+
+@media all and (max-width: 580px) {
+  .edit-profile {
+    width: 282px;
+  }
+}

@@ -1,4 +1,4 @@
-.popup__input-text {
+.edit-profile__input {
   width: 358px;
   font-family: inherit;
   font-size: 14px;
@@ -10,16 +10,16 @@
   padding: 0 0 9px;
 }
 
-.popup__input-text:last-of-type {
+.edit-profile__input:last-of-type {
   margin-bottom: 48px;
 }
 
-.popup__input-text:focus {
+.edit-profile__input:focus {
   outline: none;
 }
 
 @media all and (max-width: 580px) {
-  .popup__input-text {
+  .edit-profile__input {
     width: 238px;
   }
 }
