@@ -43,3 +43,5 @@
 @import url('../blocks/edit-profile/__info/edit-profile__info.css');
 @import url('../blocks/edit-profile/__input/edit-profile__input.css');
 @import url('../blocks/edit-profile/__submit-button/edit-profile__submit-button.css');
+/* Wrapper */
+@import url('../blocks/wrapper/wrapper.css');

@@ -2,14 +2,8 @@
   margin: 0 auto 60px;
 }
 
-@media all and (max-width: 916px) {
-  .page__footer {
-    margin: 0 19px 60px;
-  }
-}
-
 @media all and (max-width: 425px) {
   .page__footer {
-    margin: 0 19px 36px;
+    margin: 0 auto 36px;
   }
 }
