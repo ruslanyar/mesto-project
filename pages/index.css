@@ -40,7 +40,6 @@
 /* Edit-profile */
 @import url('../blocks/edit-profile/edit-profile.css');
 @import url('../blocks/edit-profile/__title/edit-profile__title.css');
-@import url('../blocks/edit-profile/__name/edit-profile__name.css');
-@import url('../blocks/edit-profile/__profession/edit-profile__profession.css');
+@import url('../blocks/edit-profile/__info/edit-profile__info.css');
 @import url('../blocks/edit-profile/__input/edit-profile__input.css');
 @import url('../blocks/edit-profile/__submit-button/edit-profile__submit-button.css');
