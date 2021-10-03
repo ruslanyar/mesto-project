@@ -21,3 +21,5 @@
 В проекте использованы следующие технологии:
 - HTML
 - CSS
+
+[Страница проекта](https://ruslanyar.github.io/mesto-project/)
