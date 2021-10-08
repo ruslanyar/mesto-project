@@ -23,7 +23,7 @@
         <img src="images/avatar.jpg" alt="жак-ив кусто" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__profession">Исследователь океана</p>
+          <p class="profile__job">Исследователь океана</p>
           <button type="button" aria-label="Редактировать профиль" class="profile__edit-button"></button>
         </div>
         <button type="button" aria-label="Добавить" class="profile__add-button"></button>
@@ -99,8 +99,8 @@
       <form name="profile" class="edit-profile">
         <h2 class="edit-profile__title">Редактировать профиль</h2>
         <fieldset class="edit-profile__info">
-          <input type="text" name="firstname" placeholder="Имя" value="Жак-Ив Кусто" required class="edit-profile__input">
-          <input type="text" name="profession" placeholder="Профессия" value="Исследователь океана" required class="edit-profile__input">
+          <input type="text" name="firstname" placeholder="Имя" required class="edit-profile__input edit-profile__input_name">
+          <input type="text" name="profession" placeholder="Профессия" required class="edit-profile__input edit-profile__input_job">
         </fieldset>
         <button type="submit" class="edit-profile__submit-button">Сохранить</button>
       </form>

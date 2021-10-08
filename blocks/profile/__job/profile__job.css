@@ -1,4 +1,4 @@
-.profile__profession {
+.profile__job {
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .profile__profession {
+  .profile__job {
     font-size: 14px;
     line-height: 17px;
     text-align: center;
