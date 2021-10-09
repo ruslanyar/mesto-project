@@ -1,4 +1,4 @@
-.edit-profile {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +6,7 @@
 }
 
 @media all and (max-width: 580px) {
-  .edit-profile {
+  .form {
     width: 282px;
   }
 }
