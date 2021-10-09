@@ -32,4 +32,3 @@ function formSubmit(evt) {
 editBtn.addEventListener('click', editProfile);
 closeBtn.addEventListener('click', closeForm);
 submitBtn.addEventListener('click', formSubmit);
-
