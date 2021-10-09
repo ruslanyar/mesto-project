@@ -96,13 +96,26 @@
   <!-- Popup -->
   <div class="popup">
     <div class="popup__container">
-      <form name="profile" class="edit-profile">
-        <h2 class="edit-profile__title">Редактировать профиль</h2>
-        <fieldset class="edit-profile__info">
-          <input type="text" name="firstname" placeholder="Имя" required class="edit-profile__input edit-profile__input_name">
-          <input type="text" name="profession" placeholder="Профессия" required class="edit-profile__input edit-profile__input_job">
+      <form name="profile" class="form">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <fieldset class="form__field">
+          <input type="text" name="firstname" placeholder="Имя" value="Жак-Ив Кусто" required class="form__input">
+          <input type="text" name="job" placeholder="Профессия" value="Исследователь океана" required class="form__input">
         </fieldset>
-        <button type="submit" class="edit-profile__submit-button">Сохранить</button>
+        <button type="submit" class="form__submit-btn">Сохранить</button>
+      </form>
+      <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+    </div>
+  </div>
+  <div class="popup">
+    <div class="popup__container">
+      <form name="addCards" class="form">
+        <h2 class="form__title"></h2>
+        <fieldset class="form__field">
+          <input type="text" class="form__input">
+          <input type="text" class="form__input">
+        </fieldset>
+        <button class="form__submit-btn"></button>
       </form>
       <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
     </div>

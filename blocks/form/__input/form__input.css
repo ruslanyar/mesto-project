@@ -1,4 +1,4 @@
-.edit-profile__input {
+.form__input {
   width: 358px;
   font-family: inherit;
   font-size: 14px;
@@ -10,16 +10,16 @@
   padding: 0 0 9px;
 }
 
-.edit-profile__input:last-of-type {
+.form__input:last-of-type {
   margin-bottom: 48px;
 }
 
-.edit-profile__input:focus {
+.form__input:focus {
   outline: none;
 }
 
 @media all and (max-width: 580px) {
-  .edit-profile__input {
+  .form__input {
     width: 238px;
   }
 }
