@@ -94,30 +94,30 @@
     </footer>
   </div>
   <!-- Popup -->
-  <div class="popup">
+  <div id="profile-edit" class="popup">
     <div class="popup__container">
       <form name="profile" class="form">
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__field">
-          <input type="text" name="firstname" placeholder="Имя" value="Жак-Ив Кусто" required class="form__input">
-          <input type="text" name="job" placeholder="Профессия" value="Исследователь океана" required class="form__input">
+          <input id="name" type="text" name="firstname" placeholder="Имя" value="Жак-Ив Кусто" required class="form__input">
+          <input id="job" type="text" name="job" placeholder="Профессия" value="Исследователь океана" required class="form__input">
+        </fieldset>
+        <button id="profileSubmitBtn" type="submit" class="form__submit-btn">Сохранить</button>
+      </form>
+      <button id="profileCloseBtn" type="button" aria-label="Закрыть" class="popup__close-button"></button>
+    </div>
+  </div>
+  <div id="add-cards" class="popup">
+    <div class="popup__container">
+      <form name="addCards" class="form">
+        <h2 class="form__title">Новое место</h2>
+        <fieldset class="form__field">
+          <input type="text" name="place" placeholder="Название" required class="form__input">
+          <input type="text" name="source" placeholder="Ссылка на картинку" required class="form__input">
         </fieldset>
         <button type="submit" class="form__submit-btn">Сохранить</button>
       </form>
-      <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
-    </div>
-  </div>
-  <div class="popup">
-    <div class="popup__container">
-      <form name="addCards" class="form">
-        <h2 class="form__title"></h2>
-        <fieldset class="form__field">
-          <input type="text" class="form__input">
-          <input type="text" class="form__input">
-        </fieldset>
-        <button class="form__submit-btn"></button>
-      </form>
-      <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+      <button id="addCardsCloseBtn" type="button" aria-label="Закрыть" class="popup__close-button"></button>
     </div>
   </div>
   <script src="./scripts/index.js"></script>
