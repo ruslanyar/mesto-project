@@ -36,9 +36,10 @@
               <img src="images/len-stolby.jpeg" alt="Ленские столбы" class="elements__image">
               <div class="elements__caption">
                 <h2 class="elements__caption-text">Якутия</h2>
-                <button type="button" aria-label="Нравится" class="elements__button elements__button_active"></button>
+                <button type="button" aria-label="Нравится" class="elements__button"></button>
               </div>
             </article>
+            
           </li>
           <li class="elements__list-item">
             <article class="elements__item">
@@ -115,8 +116,8 @@
         <form name="addCards" class="form">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
-            <input type="text" name="place" placeholder="Название" required class="form__input">
-            <input type="text" name="source" placeholder="Ссылка на картинку" required class="form__input">
+            <input type="text" name="placeName" placeholder="Название" required class="form__input">
+            <input type="text" name="link" placeholder="Ссылка на картинку" required class="form__input">
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
@@ -124,6 +125,19 @@
       </div>
     </div>
   </div>
+  <!-- Template -->
+  <template id="card-template">
+    <li class="elements__list-item">
+      <article class="elements__item">
+        <img src="" alt="" class="elements__image">
+        <div class="elements__caption">
+          <h2 class="elements__caption-text"></h2>
+          <button type="button" aria-label="Нравится" class="elements__button"></button>
+        </div>
+      </article>
+    </li>
+  </template>
+  <!-- Script -->
   <script src="./scripts/index.js"></script>
 </body>
 </html>
