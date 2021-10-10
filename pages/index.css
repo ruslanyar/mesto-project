@@ -23,11 +23,13 @@
 /* Elements */
 @import url('../blocks/elements/elements.css');
 @import url('../blocks/elements/__list/elements__list.css');
+@import url('../blocks/elements/__list-item/elements__list-item.css');
 @import url('../blocks/elements/__item/elements__item.css');
 @import url('../blocks/elements/__image/elements__image.css');
 @import url('../blocks/elements/__caption/elements__caption.css');
 @import url('../blocks/elements/__caption-text/elements__caption-text.css');
 @import url('../blocks/elements/__button/elements__button.css');
+@import url('../blocks/elements/__del-btn/elements__del-btn.css');
 @import url('../blocks/elements/__button/_active/elements__button_active.css');
 /* Footer */
 @import url('../blocks/footer/footer.css');
