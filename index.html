@@ -8,7 +8,7 @@
   <meta name="keywords" content="">
   <meta name="author" content="ruslanyar">
   <title>Mesto</title>
-  <link rel="stylesheet" href="pages/index.css">
+  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="wrapper">
@@ -23,7 +23,7 @@
         <img src="images/avatar.jpg" alt="жак-ив кусто" class="profile__avatar">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__profession">Исследователь океана</p>
+          <p class="profile__job">Исследователь океана</p>
           <button type="button" aria-label="Редактировать профиль" class="profile__edit-button"></button>
         </div>
         <button type="button" aria-label="Добавить" class="profile__add-button"></button>
@@ -99,32 +99,50 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <!-- Popup -->
-  <div class="popup">
-    <div class="popup__container">
-      <form name="profile" class="form">
-        <h2 class="form__title">Редактировать профиль</h2>
-        <fieldset class="form__field">
-          <input type="text" name="firstname" placeholder="Имя" value="Жак-Ив Кусто" required class="form__input">
-          <input type="text" name="job" placeholder="Профессия" value="Исследователь океана" required class="form__input">
-        </fieldset>
-        <button type="submit" class="form__submit-btn">Сохранить</button>
-      </form>
-      <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+  <!-- Popups -->
+  <div id="popups">
+    <!-- Edit profile popup -->
+    <div id="profileEdit" class="popup">
+      <div class="popup__container">
+        <form name="profile" class="form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <fieldset class="form__field">
+            <input id="name" type="text" name="firstname" placeholder="Имя" required class="form__input">
+            <input id="job" type="text" name="job" placeholder="Профессия" required class="form__input">
+          </fieldset>
+          <button type="submit" class="form__submit-btn">Сохранить</button>
+        </form>
+        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+      </div>
+    </div>
+    <!-- Add cards popup -->
+    <div id="addCards" class="popup">
+      <div class="popup__container">
+        <form name="addCards" class="form">
+          <h2 class="form__title">Новое место</h2>
+          <fieldset class="form__field">
+            <input type="text" name="placeName" placeholder="Название" required class="form__input">
+            <input type="text" name="link" placeholder="Ссылка на картинку" required class="form__input">
+          </fieldset>
+          <button type="submit" class="form__submit-btn">Сохранить</button>
+        </form>
+        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+      </div>
     </div>
   </div>
-  <div class="popup">
-    <div class="popup__container">
-      <form name="addCards" class="form">
-        <h2 class="form__title"></h2>
-        <fieldset class="form__field">
-          <input type="text" class="form__input">
-          <input type="text" class="form__input">
-        </fieldset>
-        <button class="form__submit-btn"></button>
-      </form>
-      <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
-    </div>
-  </div>
+  <!-- Template -->
+  <template id="card-template">
+    <li class="elements__list-item">
+      <article class="elements__item">
+        <img src="" alt="" class="elements__image">
+        <div class="elements__caption">
+          <h2 class="elements__caption-text"></h2>
+          <button type="button" aria-label="Нравится" class="elements__button"></button>
+        </div>
+      </article>
+    </li>
+  </template>
+  <!-- Script -->
+  <script src="./scripts/index.js"></script>
 </body>
 </html>
