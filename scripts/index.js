@@ -1,5 +1,5 @@
 const content = document.querySelector('.content');
-const popups = document.querySelector('#popups');
+const popups = document.querySelector('.popups-wrapper');
 const editBtn = content.querySelector('.profile__edit-button');
 const addBtn = content.querySelector('.profile__add-button');
 const closeBtn = popups.querySelectorAll('.popup__close-button');
@@ -7,21 +7,21 @@ const submit = popups.querySelectorAll('.form');
 
 let profileName = content.querySelector('.profile__name');
 let profileJob = content.querySelector('.profile__job');
-let inputName = popups.querySelector('#name');
-let inputJob = popups.querySelector('#job');
+let inputName = popups.querySelector('.form__input_name');
+let inputJob = popups.querySelector('.form__input_job');
 
 // функция открытия формы профиля
 function editFormHandler() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 
-  popups.querySelector('#profileEdit').classList.add('popup_opened');
+  popups.querySelector('.popup_edit-profile').classList.add('popup_opened');
 }
 
-// функция закрытия формы
+// функция закрытия форм
 function closeForm() {
-  popups.querySelector('#profileEdit').classList.remove('popup_opened');
-  popups.querySelector('#addCards').classList.remove('popup_opened');
+  popups.querySelector('.popup_edit-profile').classList.remove('popup_opened');
+  popups.querySelector('.popup_add-cards').classList.remove('popup_opened');
 }
 
 function submitFormHandler(evt) {
@@ -34,11 +34,11 @@ function submitFormHandler(evt) {
 }
 
 function addFormHandler() {
-  popups.querySelector('#addCards').classList.add('popup_opened');
+  popups.querySelector('.popup_add-cards').classList.add('popup_opened');
 }
 // функция создания новой карточки
 function createCard() {
-  const cardTemplate = document.querySelector('#card-template').content;
+  const cardTemplate = document.querySelector('.cards-template').content;
   const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
 
   content.querySelector('.elements__list').prepend(cardElement);
