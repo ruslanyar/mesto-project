@@ -10,10 +10,16 @@ const inputName = popups.querySelector('.form__input_name');
 const inputJob = popups.querySelector('.form__input_job');
 const cardTemplate = document.querySelector('.cards-template').content;
 const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
+const cardTitle = cardElement.querySelector('.elements__caption-text');
+const cardLink = cardElement.querySelector('.elements__image');
 
-function defaultCards() {
-  
-}
+initialCards.forEach(function(element) {
+  cardTitle.textContent = element.name;
+  cardLink.src = element.link;
+
+  addCard();
+})
+
 // функция открытия формы профиля
 function editFormHandler() {
   inputName.value = profileName.textContent;
@@ -42,14 +48,18 @@ function addFormHandler() {
 }
 // функция создания новой карточки
 function createCard() {
-  const cardTitle = cardElement.querySelector('.elements__caption-text');
-  const cardLink = cardElement.querySelector('.elements__image');
+
   const inputCardName = popups.querySelector('.form__input_place-name');
   const inputCardLink = popups.querySelector('.form__input_link');
 
   cardTitle.textContent = inputCardName.value;
   cardLink.srcset = inputCardLink.value;
 
+  addCard();
+}
+
+// функция добавления карточки
+function addCard () {
   content.querySelector('.elements__list').prepend(cardElement);
 }
 
