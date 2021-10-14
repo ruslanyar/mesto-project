@@ -9,21 +9,26 @@ const profileJob = content.querySelector('.profile__job');
 const inputName = popups.querySelector('.form__input_name');
 const inputJob = popups.querySelector('.form__input_job');
 const elementsList = content.querySelector('.elements__list');
-const cardTemplate = document.querySelector('.cards-template').content;
-const cardElementsArray = [];
 
-for (i = 0; i < initialCards.length; i++) {
-  const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
-  const cardTitle = cardElement.querySelector('.elements__caption-text');
-  const cardLink = cardElement.querySelector('.elements__image');
-  cardTitle.textContent = initialCards[i].name;
-  cardLink.src = initialCards[i].link;
-  cardElementsArray[i] = cardElement;
+function addDefaultCards() {
+  const cardTemplate = document.querySelector('.cards-template').content;
+  const cardElementsArray = [];
+
+  for (i = 0; i < initialCards.length; i++) {
+    const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
+    const cardTitle = cardElement.querySelector('.elements__caption-text');
+    const cardLink = cardElement.querySelector('.elements__image');
+    cardTitle.textContent = initialCards[i].name;
+    cardLink.src = initialCards[i].link;
+    cardElementsArray[i] = cardElement;
+  }
+
+  for (i = 0; i < cardElementsArray.length; i++) {
+    elementsList.prepend(cardElementsArray[i]);
+  }
 }
 
-for (i = 0; i < cardElementsArray.length; i++) {
-  elementsList.prepend(cardElementsArray[i]);
-}
+addDefaultCards();
 
 // функция открытия формы профиля
 function editFormHandler() {
@@ -52,15 +57,15 @@ function submitEditFormHandler(evt) {
 }
 
 // функция создания новой карточки
-function createCard() {
-  const inputCardName = popups.querySelector('.form__input_place-name');
-  const inputCardLink = popups.querySelector('.form__input_link');
+// function createCard() {
+//   const inputCardName = popups.querySelector('.form__input_place-name');
+//   const inputCardLink = popups.querySelector('.form__input_link');
 
-  cardTitle.textContent = inputCardName.value;
-  cardLink.src = inputCardLink.value;
+//   cardTitle.textContent = inputCardName.value;
+//   cardLink.src = inputCardLink.value;
 
-  // здесь поместить функцию добавления карточки
-}
+//   // здесь поместить функцию добавления карточки
+// }
 
 function submitAddCardForm(evt) {
   evt.preventDefault();
