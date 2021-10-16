@@ -1,11 +1,12 @@
 const content = document.querySelector('.content');
 const popups = document.querySelector('.popups-wrapper');
-const editPopup = popups.querySelector('.popup_edit-profile');
+const editPopup = popups.querySelector('.popup_type_edit-profile');
 const profileName = content.querySelector('.profile__name');
 const profileJob = content.querySelector('.profile__job');
 const inputName = popups.querySelector('.form__input_name');
 const inputJob = popups.querySelector('.form__input_job');
-const addPopup = popups.querySelector('.popup_add-cards');
+const addPopup = popups.querySelector('.popup_type_add-cards');
+const viewPopup = popups.querySelector('.popup_type_view')
 const editBtn = content.querySelector('.profile__edit-button');
 const addBtn = content.querySelector('.profile__add-button');
 const closeBtn = popups.querySelectorAll('.popup__close-button');
@@ -16,10 +17,11 @@ function createCardElement (cardTitle, cardLink) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const likeBtn = cardTemplateElement.querySelector('.cards__button');
   const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
+  const cardImage = cardTemplateElement.querySelector('.cards__image')
 
   cardTemplateElement.querySelector('.cards__caption-text').textContent = cardTitle;
-  cardTemplateElement.querySelector('.cards__image').src = cardLink;
-  cardTemplateElement.querySelector('.cards__image').alt = cardTitle;
+  cardImage.src = cardLink;
+  cardImage.alt = cardTitle;
 
   likeBtn.addEventListener('click', function(evt) {
     evt.target.classList.toggle('cards__button_active');
@@ -28,6 +30,10 @@ function createCardElement (cardTitle, cardLink) {
   delBtn.addEventListener('click', function(evt) {
     evt.target.closest('.cards__list-item').remove();
   });
+
+  cardImage.addEventListener('click', function(evt){
+    viewPopup.classList.add('popup_opened');
+  })
 
   return cardTemplateElement;
 };
