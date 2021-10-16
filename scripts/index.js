@@ -32,14 +32,12 @@ function createCardElement (cardTitle, cardLink) {
   return cardTemplateElement;
 };
 
-function renderCard(data, wrapElement) {
+function renderCard(data) {
   const name = data.name;
   const link = data.link;
-
-  //здесь мне нужно вызвать функцию createCardElement и записать её в переменную?
   const card = createCardElement(name, link);
+  const wrapElement = content.querySelector('.elements__list');
 
-  wrapElement = content.querySelector('.elements__list'); // элемент куда вставляем карточку
   wrapElement.prepend(card);
 }
 
@@ -82,6 +80,24 @@ function submitEditFormHandler(evt) {
   profileJob.textContent = inputJob.value;
 
   closeEditForm();
+}
+
+function submitAddFormHandler(evt) {
+  evt.preventDefault();
+
+  const cardNameInput = popups.querySelector('.form__input_place-name');
+  const cardLinkInput = popups.querySelector('.form__input_link');
+  const cardObject = {};
+
+  cardObject.name = cardNameInput.value;
+  cardObject.link = cardLinkInput.value;
+
+  renderCard(cardObject);
+
+  closeAddForm();
+
+  cardNameInput.value = '';
+  cardLinkInput.value = '';
 }
 
 editBtn.addEventListener('click', openEditFormHandler);
