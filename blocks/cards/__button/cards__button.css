@@ -1,4 +1,4 @@
-.elements__button {
+.cards__button {
   width: 22px;
   height: 19px;
   background-color: transparent;
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.elements__button:hover {
+.cards__button:hover {
   opacity: .5;
   transform: scale(1.3);
 }
