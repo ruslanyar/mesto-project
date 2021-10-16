@@ -1,54 +1,52 @@
 const content = document.querySelector('.content');
 const popups = document.querySelector('.popups-wrapper');
-const editBtn = content.querySelector('.profile__edit-button');
-const addBtn = content.querySelector('.profile__add-button');
-const closeBtn = popups.querySelectorAll('.popup__close-button');
-const submit = popups.querySelectorAll('.form');
+const editPopup = popups.querySelector('.popup_edit-profile');
 const profileName = content.querySelector('.profile__name');
 const profileJob = content.querySelector('.profile__job');
 const inputName = popups.querySelector('.form__input_name');
 const inputJob = popups.querySelector('.form__input_job');
-const elementsList = content.querySelector('.elements__list');
-const deleteBtn = document.querySelector('.elements__del-btn');
-const editPopup = popups.querySelector('.popup_edit-profile');
-const newItemPopup = popups.querySelector('.popup_add-cards');
+const addPopup = popups.querySelector('.popup_add-cards');
+const editBtn = content.querySelector('.profile__edit-button');
+const addBtn = content.querySelector('.profile__add-button');
+const closeBtn = popups.querySelectorAll('.popup__close-button');
+const submitForm = popups.querySelectorAll('.form');
+const cardTemplate = document.querySelector('.cards-template').content;
 
-// TODO      создать отдельные функции
-function addDefaultCards() {
-  const cardTemplate = document.querySelector('.cards-template').content;
-  const cardElementsArray = [];
+function createCardElement (cardTitle, cardLink) {
+  const cardTemplateElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
+  const likeBtn = cardTemplateElement.querySelector('.elements__button');
+  const delBtn = cardTemplateElement.querySelector('.elements__del-btn');
 
-  initialCards.forEach(function(object) {
-    const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
-    const cardTitle = cardElement.querySelector('.elements__caption-text');
-    const cardLink = cardElement.querySelector('.elements__image');
+  cardTemplateElement.querySelector('.elements__caption-text').textContent = cardTitle;
+  cardTemplateElement.querySelector('.elements__image').src = cardLink;
+  cardTemplateElement.querySelector('.elements__image').alt = cardTitle;
 
-    cardTitle.textContent = object.name;
-    cardLink.src = object.link;
-
-    cardElement.querySelector('.elements__button').addEventListener('click', function (evt) {
-      evt.target.classList.toggle('elements__button_active');
-    });
-
-    cardElementsArray.push(cardElement);
+  likeBtn.addEventListener('click', function(evt) {
+    evt.target.classList.toggle('elements__button_active');
   });
 
-  cardElementsArray.forEach(function(el) {
-    elementsList.prepend(el);
+  delBtn.addEventListener('click', function(evt) {
+    evt.target.closest('.elements__list-item').remove();
   });
+
+  return cardTemplateElement;
+};
+
+function renderCard(data, wrapElement) {
+  const name = data.name;
+  const link = data.link;
+
+  //здесь мне нужно вызвать функцию createCardElement и записать её в переменную?
+  const card = createCardElement(name, link);
+
+  wrapElement = content.querySelector('.elements__list'); // элемент куда вставляем карточку
+  wrapElement.prepend(card);
 }
 
-addDefaultCards();
-//!
-function getCardElement(data) {   // TODO
-  const cardTemplate = document.querySelector('.cards-template').content;
+initialCards.forEach(function(obj) {
+  renderCard(obj);
+})
 
-  function createCard (name, link) {
-    const cardElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
-    const cardTitle = cardElement.querySelector('.elements__caption-text');
-    const cardLink = cardElement.querySelector('.elements__image');
-  }
-}   // TODO
 
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
@@ -58,15 +56,15 @@ function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
-function editFormHandler() {
+function openEditFormHandler() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 
   openPopup(editPopup);
 }
 
-function addFormHandler() {
-  openPopup(newItemPopup);
+function openAddFormHandler() {
+  openPopup(addPopup);
 }
 
 function closeEditForm() {
@@ -74,7 +72,7 @@ function closeEditForm() {
 }
 
 function closeAddForm() {
-  closePopup(newItemPopup);
+  closePopup(addPopup);
 }
 
 function submitEditFormHandler(evt) {
@@ -86,12 +84,12 @@ function submitEditFormHandler(evt) {
   closeEditForm();
 }
 
-editBtn.addEventListener('click', editFormHandler);
-addBtn.addEventListener('click', addFormHandler);
+editBtn.addEventListener('click', openEditFormHandler);
+addBtn.addEventListener('click', openAddFormHandler);
 // !слушатель кнопки закрытия формы профиля
 closeBtn[0].addEventListener('click', closeEditForm);
 // !слушатель кнопки закрытия формы добавления карточек
 closeBtn[1].addEventListener('click', closeAddForm);
 // !слушатель отправки формы профиля
-submit[0].addEventListener('submit', submitEditFormHandler);
-// submit[1].addEventListener('submit', submitAddCardForm);
+submitForm[0].addEventListener('submit', submitEditFormHandler);
+submitForm[1].addEventListener('submit', submitAddFormHandler);
