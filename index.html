@@ -31,66 +31,6 @@
       <!-- Elements -->
       <section class="elements page__elements">
         <ul class="elements__list page__list">
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/len-stolby.jpeg" alt="Ленские столбы" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Якутия</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/baikal.jpg" alt="озеро Байкал" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Озеро Байкал</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/blue-eye.jpg" alt="озеро Голубой Глаз" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Марий Эл</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/kuthiny.jpg" alt="Кутхины баты" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Камчатка</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/kamen-ozero.jpg" alt="озеро Каменное" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Карелия</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
-          <li class="elements__list-item">
-            <article class="elements__item">
-              <img src="images/ruskealia.jpg" alt="горный парк Рускеала" class="elements__image">
-              <div class="elements__caption">
-                <h2 class="elements__caption-text">Горный парк Рускеала</h2>
-                <button type="button" aria-label="Нравится" class="elements__button"></button>
-              </div>
-            </article>
-            <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
-          </li>
         </ul>
       </section>
     </main>
@@ -100,15 +40,15 @@
     </footer>
   </div>
   <!-- Popups -->
-  <div id="popups">
+  <div class="popups-wrapper">
     <!-- Edit profile popup -->
-    <div id="profileEdit" class="popup">
+    <div class="popup popup_edit-profile">
       <div class="popup__container">
         <form name="profile" class="form">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
-            <input id="name" type="text" name="firstname" placeholder="Имя" required class="form__input">
-            <input id="job" type="text" name="job" placeholder="Профессия" required class="form__input">
+            <input type="text" name="firstname" placeholder="Имя" required class="form__input form__input_name">
+            <input type="text" name="job" placeholder="Профессия" required class="form__input form__input_job">
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
@@ -116,13 +56,13 @@
       </div>
     </div>
     <!-- Add cards popup -->
-    <div id="addCards" class="popup">
+    <div class="popup popup_add-cards">
       <div class="popup__container">
         <form name="addCards" class="form">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
-            <input type="text" name="placeName" placeholder="Название" required class="form__input">
-            <input type="text" name="link" placeholder="Ссылка на картинку" required class="form__input">
+            <input type="text" name="placeName" placeholder="Название" required class="form__input form__input_place-name">
+            <input type="text" name="link" placeholder="Ссылка на картинку" required class="form__input form__input_link">
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
@@ -131,7 +71,7 @@
     </div>
   </div>
   <!-- Template -->
-  <template id="card-template">
+  <template class="cards-template">
     <li class="elements__list-item">
       <article class="elements__item">
         <img src="" alt="" class="elements__image">
@@ -140,9 +80,11 @@
           <button type="button" aria-label="Нравится" class="elements__button"></button>
         </div>
       </article>
+      <button type="button" aria-label="Удалить" class="elements__del-btn"></button>
     </li>
   </template>
   <!-- Script -->
+  <script src="./scripts/cards.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 </html>
