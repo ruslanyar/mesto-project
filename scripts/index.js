@@ -13,20 +13,20 @@ const submitForm = popups.querySelectorAll('.form');
 const cardTemplate = document.querySelector('.cards-template').content;
 
 function createCardElement (cardTitle, cardLink) {
-  const cardTemplateElement = cardTemplate.querySelector('.elements__list-item').cloneNode(true);
-  const likeBtn = cardTemplateElement.querySelector('.elements__button');
-  const delBtn = cardTemplateElement.querySelector('.elements__del-btn');
+  const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
+  const likeBtn = cardTemplateElement.querySelector('.cards__button');
+  const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
 
-  cardTemplateElement.querySelector('.elements__caption-text').textContent = cardTitle;
-  cardTemplateElement.querySelector('.elements__image').src = cardLink;
-  cardTemplateElement.querySelector('.elements__image').alt = cardTitle;
+  cardTemplateElement.querySelector('.cards__caption-text').textContent = cardTitle;
+  cardTemplateElement.querySelector('.cards__image').src = cardLink;
+  cardTemplateElement.querySelector('.cards__image').alt = cardTitle;
 
   likeBtn.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('elements__button_active');
+    evt.target.classList.toggle('cards__button_active');
   });
 
   delBtn.addEventListener('click', function(evt) {
-    evt.target.closest('.elements__list-item').remove();
+    evt.target.closest('.cards__list-item').remove();
   });
 
   return cardTemplateElement;
@@ -36,7 +36,7 @@ function renderCard(data) {
   const name = data.name;
   const link = data.link;
   const card = createCardElement(name, link);
-  const wrapElement = content.querySelector('.elements__list');
+  const wrapElement = content.querySelector('.cards__list');
 
   wrapElement.prepend(card);
 }

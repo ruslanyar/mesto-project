@@ -1,4 +1,4 @@
-.elements__del-btn {
+.cards__del-btn {
   width: 18px;
   height: 20px;
   margin: 0;
@@ -16,6 +16,6 @@
   transition: opacity .3;
 }
 
-.elements__del-btn:hover {
+.cards__del-btn:hover {
   opacity: .6;
 }
