@@ -17,7 +17,7 @@ function createCardElement (cardTitle, cardLink) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const likeBtn = cardTemplateElement.querySelector('.cards__button');
   const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
-  const cardImage = cardTemplateElement.querySelector('.cards__image')
+  const cardImage = cardTemplateElement.querySelector('.cards__image');
 
   cardTemplateElement.querySelector('.cards__caption-text').textContent = cardTitle;
   cardImage.src = cardLink;
@@ -40,7 +40,7 @@ function createCardElement (cardTitle, cardLink) {
     viewCaption.textContent = evt.target.alt;
 
     viewPopup.classList.add('popup_opened');
-  })
+  });
 
   return cardTemplateElement;
 };
