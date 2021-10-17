@@ -32,6 +32,13 @@ function createCardElement (cardTitle, cardLink) {
   });
 
   cardImage.addEventListener('click', function(evt){
+    const viewImage = popups.querySelector('.popup__view-image');
+    const viewCaption = popups.querySelector('.popup__view-caption');
+
+    viewImage.src = evt.target.currentSrc;
+    viewImage.alt = evt.target.alt;
+    viewCaption.textContent = evt.target.alt;
+
     viewPopup.classList.add('popup_opened');
   })
 
@@ -79,6 +86,10 @@ function closeAddForm() {
   closePopup(addPopup);
 }
 
+function closeViewPopup() {
+  closePopup(viewPopup);
+}
+
 function submitEditFormHandler(evt) {
   evt.preventDefault();
 
@@ -112,6 +123,7 @@ addBtn.addEventListener('click', openAddFormHandler);
 closeBtn[0].addEventListener('click', closeEditForm);
 // !слушатель кнопки закрытия формы добавления карточек
 closeBtn[1].addEventListener('click', closeAddForm);
+closeBtn[2].addEventListener('click', closeViewPopup);
 // !слушатель отправки формы профиля
 submitForm[0].addEventListener('submit', submitEditFormHandler);
 submitForm[1].addEventListener('submit', submitAddFormHandler);
