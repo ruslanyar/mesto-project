@@ -58,7 +58,6 @@ initialCards.forEach(function(obj) {
   renderCard(obj);
 })
 
-
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
 }
@@ -119,11 +118,8 @@ function submitAddFormHandler(evt) {
 
 editBtn.addEventListener('click', openEditFormHandler);
 addBtn.addEventListener('click', openAddFormHandler);
-// !слушатель кнопки закрытия формы профиля
 closeBtn[0].addEventListener('click', closeEditForm);
-// !слушатель кнопки закрытия формы добавления карточек
 closeBtn[1].addEventListener('click', closeAddForm);
 closeBtn[2].addEventListener('click', closeViewPopup);
-// !слушатель отправки формы профиля
 submitForm[0].addEventListener('submit', submitEditFormHandler);
 submitForm[1].addEventListener('submit', submitAddFormHandler);
