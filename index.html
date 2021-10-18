@@ -44,7 +44,7 @@
     <!-- Edit profile popup -->
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
-        <form name="profile" class="form">
+        <form name="profile" class="form form_type_editForm">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
             <input type="text" name="firstname" placeholder="Имя" required class="form__input form__input_name">
@@ -52,13 +52,13 @@
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
-        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_edit-form"></button>
       </div>
     </div>
     <!-- Add cards popup -->
     <div class="popup popup_type_add-cards">
       <div class="popup__container">
-        <form name="addCards" class="form">
+        <form name="addCards" class="form form_type_addForm">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
             <input type="text" name="placeName" placeholder="Название" required class="form__input form__input_place-name">
@@ -66,7 +66,7 @@
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
-        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_add-form"></button>
       </div>
     </div>
     <!-- Image View Popup -->
@@ -76,7 +76,7 @@
           <img src="" alt="" class="popup__view-image">
           <figcaption class="popup__view-caption"></figcaption>
         </figure>
-        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+        <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_view"></button>
       </div>
     </div>
   </div>
