@@ -15,6 +15,7 @@ const closeBtnView = popups.querySelector('.popup__close-button_view');
 const editForm = popups.querySelector('.form_type_editForm');
 const addForm = popups.querySelector('.form_type_addForm');
 const cardTemplate = document.querySelector('.cards-template').content;
+const wrapElement = content.querySelector('.cards__list');
 
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
@@ -24,15 +25,16 @@ function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
 }
 
-function createCardElement (cardTitle, cardLink) {
+function createCardElement (title, link) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const likeBtn = cardTemplateElement.querySelector('.cards__button');
   const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
   const cardImage = cardTemplateElement.querySelector('.cards__image');
+  const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
 
-  cardTemplateElement.querySelector('.cards__caption-text').textContent = cardTitle;
-  cardImage.src = cardLink;
-  cardImage.alt = cardTitle;
+  cardTitle.textContent = title;
+  cardImage.src = link;
+  cardImage.alt = title;
 
   likeBtn.addEventListener('click', function(evt) {
     evt.target.classList.toggle('cards__button_active');
@@ -56,17 +58,16 @@ function createCardElement (cardTitle, cardLink) {
   return cardTemplateElement;
 }
 
-function renderCard(data) {
+function renderCard(data, wrapElement) {
   const name = data.name;
   const link = data.link;
   const card = createCardElement(name, link);
-  const wrapElement = content.querySelector('.cards__list');
 
   wrapElement.prepend(card);
 }
 
 initialCards.forEach(function(obj) {
-  renderCard(obj);
+  renderCard(obj, wrapElement);
 })
 
 function openEditFormHandler() {
@@ -95,17 +96,23 @@ function submitAddFormHandler(evt) {
     link: cardLinkInput.value
   };
 
-  renderCard(cardObject);
+  renderCard(cardObject, wrapElement);
 
   closePopup(addPopup);
 
   addForm.reset();
 }
 
+function closeViewPopupHandler(evt) {
+  if (evt.target == evt.currentTarget || evt.target == closeBtnView) {
+    closePopup(viewPopup);
+  };
+}
+
 editBtn.addEventListener('click', openEditFormHandler);
 addBtn.addEventListener('click', () => openPopup(addPopup));
 closeBtnEdit.addEventListener('click', () => closePopup(editPopup));
 closeBtnAdd.addEventListener('click', () => closePopup(addPopup));
-closeBtnView.addEventListener('click', () => closePopup(viewPopup));
 editForm.addEventListener('submit', submitEditFormHandler);
 addForm.addEventListener('submit', submitAddFormHandler);
+viewPopup.addEventListener('click', closeViewPopupHandler);
