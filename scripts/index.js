@@ -9,51 +9,19 @@ const addPopup = popups.querySelector('.popup_type_add-cards');
 const viewPopup = popups.querySelector('.popup_type_view');
 const editBtn = content.querySelector('.profile__edit-button');
 const addBtn = content.querySelector('.profile__add-button');
-const closeBtnEdit = popups.querySelector('.popup__close-button_edit-form');
-const closeBtnAdd = popups.querySelector('.popup__close-button_add-form');
-const closeBtnView = popups.querySelector('.popup__close-button_view');
 const editForm = popups.querySelector('.form_type_editForm');
 const addForm = popups.querySelector('.form_type_addForm');
 const cardTemplate = document.querySelector('.cards-template').content;
 const wrapElement = content.querySelector('.cards__list');
 
-function openPopup (popupElement) {
-  popupElement.classList.add('popup_opened');
-}
-
-function closePopup (popupElement) {
-  popupElement.classList.remove('popup_opened');
-}
-
 function createCardElement (title, link) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
-  const likeBtn = cardTemplateElement.querySelector('.cards__button');
-  const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
   const cardImage = cardTemplateElement.querySelector('.cards__image');
   const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
 
   cardTitle.textContent = title;
   cardImage.src = link;
   cardImage.alt = title;
-
-  likeBtn.addEventListener('click', function(evt) {
-    evt.target.classList.toggle('cards__button_active');
-  });
-
-  delBtn.addEventListener('click', function(evt) {
-    evt.target.closest('.cards__list-item').remove();
-  });
-
-  cardImage.addEventListener('click', function(evt){
-    const viewImage = popups.querySelector('.popup__view-image');
-    const viewCaption = popups.querySelector('.popup__view-caption');
-
-    viewImage.src = evt.target.currentSrc;
-    viewImage.alt = evt.target.alt;
-    viewCaption.textContent = evt.target.alt;
-
-    openPopup (viewPopup);
-  });
 
   return cardTemplateElement;
 }
@@ -70,11 +38,25 @@ initialCards.forEach(function(obj) {
   renderCard(obj, wrapElement);
 })
 
+function openPopup (popupElement) {
+  popupElement.classList.add('popup_opened');
+}
+
+function closePopup (popupElement) {
+  popupElement.classList.remove('popup_opened');
+}
+
 function openEditFormHandler() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 
   openPopup(editPopup);
+}
+
+function closePopupHandler(evt) {
+  if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
+    closePopup(evt.currentTarget);
+  }
 }
 
 function submitEditFormHandler(evt) {
@@ -103,16 +85,32 @@ function submitAddFormHandler(evt) {
   addForm.reset();
 }
 
-function closeViewPopupHandler(evt) {
-  if (evt.target == evt.currentTarget || evt.target == closeBtnView) {
-    closePopup(viewPopup);
-  };
+function wrapElementHandler(evt) {
+  if (evt.target.classList.contains('cards__like-btn')) {
+    evt.target.classList.toggle('cards__like-btn_active');
+  }
+
+  if (evt.target.classList.contains('cards__del-btn')) {
+    evt.target.closest('.cards__list-item').remove();
+  }
+
+  if (evt.target.classList.contains('cards__image')) {
+    const viewImage = popups.querySelector('.popup__view-image');
+    const viewCaption = popups.querySelector('.popup__view-caption');
+
+    viewImage.src = evt.target.currentSrc;
+    viewImage.alt = evt.target.alt;
+    viewCaption.textContent = evt.target.alt;
+
+    openPopup (viewPopup);
+  }
 }
 
 editBtn.addEventListener('click', openEditFormHandler);
 addBtn.addEventListener('click', () => openPopup(addPopup));
-closeBtnEdit.addEventListener('click', () => closePopup(editPopup));
-closeBtnAdd.addEventListener('click', () => closePopup(addPopup));
 editForm.addEventListener('submit', submitEditFormHandler);
 addForm.addEventListener('submit', submitAddFormHandler);
-viewPopup.addEventListener('click', closeViewPopupHandler);
+editPopup.addEventListener('click', closePopupHandler);
+addPopup.addEventListener('click', closePopupHandler);
+viewPopup.addEventListener('click', closePopupHandler);
+wrapElement.addEventListener('click', wrapElementHandler);

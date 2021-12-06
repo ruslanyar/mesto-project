@@ -1,4 +1,4 @@
-.cards__button {
+.cards__like-btn {
   width: 22px;
   height: 19px;
   background-color: transparent;
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.cards__button:hover {
+.cards__like-btn:hover {
   opacity: .5;
   transform: scale(1.3);
 }
