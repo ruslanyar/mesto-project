@@ -40,10 +40,19 @@ initialCards.forEach(function(obj) {
 
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
+  window.addEventListener('keydown', keyHandler);
 }
 
 function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
+  window.removeEventListener('keydown', keyHandler);
+}
+
+function keyHandler(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = popups.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
 }
 
 function openEditFormHandler() {
