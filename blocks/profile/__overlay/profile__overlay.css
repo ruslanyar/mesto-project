@@ -15,6 +15,13 @@
   transition: opacity .3s;
 }
 
+@media all and (max-width: 768px) {
+  .profile__overlay {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
 .profile__overlay:hover {
   opacity: 1;
 }

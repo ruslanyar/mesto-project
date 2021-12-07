@@ -3,7 +3,7 @@
   gap: 16px 18px;
 }
 
-@media all and (max-width: 700px) {
+@media all and (max-width: 768px) {
   .profile__info {
     gap: 14px 10px;
     position: relative;

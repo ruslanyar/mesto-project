@@ -4,7 +4,7 @@
   border-radius: 50%;
 }
 
-@media all and (max-width: 616px) {
+@media all and (max-width: 768px) {
   .profile__avatar {
     margin-bottom: 26px;
   }

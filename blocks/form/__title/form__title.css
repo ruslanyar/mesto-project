@@ -8,7 +8,7 @@
   padding: 34px 0 0;
 }
 
-@media all and (max-width: 580px) {
+@media all and (max-width: 768px) {
   .form__title {
     width: 238px;
     font-size: 18px;
