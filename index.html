@@ -20,7 +20,8 @@
     <main class="content">
       <!-- Profile -->
       <section class="profile page__profile">
-        <img src="images/avatar.jpg" alt="жак-ив кусто" class="profile__avatar">
+        <img src="images/avatar.jpg" alt="аватар" class="profile__avatar">
+        <div class="profile__overlay"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__job">Исследователь океана</p>
@@ -77,6 +78,17 @@
           <figcaption class="popup__view-caption"></figcaption>
         </figure>
         <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_view"></button>
+      </div>
+    </div>
+    <!-- Edit avatar popup -->
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <form name="avatar" class="form form_type_avatar">
+          <h2 class="form__title">Обновить аватар</h2>
+          <input type="text" name="profile-avatar" placeholder="Ссылка на картинку" class="form__input" required>
+          <button type="submit" class="form__submit-btn">Сохранить</button>
+        </form>
+        <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
       </div>
     </div>
   </div>

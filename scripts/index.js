@@ -7,12 +7,15 @@ const inputName = popups.querySelector('.form__input_name');
 const inputJob = popups.querySelector('.form__input_job');
 const addPopup = popups.querySelector('.popup_type_add-cards');
 const viewPopup = popups.querySelector('.popup_type_view');
+const editAvatarPopup = popups.querySelector('.popup_type_edit-avatar');
 const editBtn = content.querySelector('.profile__edit-button');
 const addBtn = content.querySelector('.profile__add-button');
 const editForm = popups.querySelector('.form_type_editForm');
 const addForm = popups.querySelector('.form_type_addForm');
+const editAvatarForm = popups.querySelector('.form_type_avatar');
 const cardTemplate = document.querySelector('.cards-template').content;
 const wrapElement = content.querySelector('.cards__list');
+const avatarOverlay = content.querySelector('.profile__overlay');
 
 function createCardElement (title, link) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
@@ -94,6 +97,19 @@ function submitAddFormHandler(evt) {
   addForm.reset();
 }
 
+function submitEditAvatarHandler(evt) {
+  evt.preventDefault();
+
+  const avatarImage = content.querySelector('.profile__avatar');
+  const inputEditAvatar = editAvatarForm.querySelector('.form__input');
+
+  avatarImage.src = inputEditAvatar.value;
+
+  closePopup(editAvatarPopup);
+
+  editAvatarForm.reset();
+}
+
 function wrapElementHandler(evt) {
   if (evt.target.classList.contains('cards__like-btn')) {
     evt.target.classList.toggle('cards__like-btn_active');
@@ -117,9 +133,12 @@ function wrapElementHandler(evt) {
 
 editBtn.addEventListener('click', openEditFormHandler);
 addBtn.addEventListener('click', () => openPopup(addPopup));
+avatarOverlay.addEventListener('click', () => openPopup(editAvatarPopup));
 editForm.addEventListener('submit', submitEditFormHandler);
 addForm.addEventListener('submit', submitAddFormHandler);
 editPopup.addEventListener('click', closePopupHandler);
 addPopup.addEventListener('click', closePopupHandler);
+editAvatarForm.addEventListener('submit', submitEditAvatarHandler);
 viewPopup.addEventListener('click', closePopupHandler);
+editAvatarPopup.addEventListener('click', closePopupHandler);
 wrapElement.addEventListener('click', wrapElementHandler);
