@@ -45,11 +45,17 @@
     <!-- Edit profile popup -->
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
-        <form name="profile" class="form form_type_editForm">
+        <form name="profile" class="form form_type_edit-profile-form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
-            <input type="text" name="firstname" placeholder="Имя" required class="form__input form__input_name">
-            <input type="text" name="job" placeholder="Профессия" required class="form__input form__input_job">
+            <label for="firstName" class="form__label">
+              <input id="name-input" type="text" name="firstName" placeholder="Имя" class="form__input" minlength="2"  required>
+              <span id="name-input-error" class="form__input-error"></span>
+            </label>
+            <label for="job" class="form__label">
+              <input id="job-input" type="text" name="job" placeholder="Профессия" class="form__input"  required>
+              <span id="job-input-error" class="form__input-error"></span>
+            </label>
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
@@ -59,11 +65,17 @@
     <!-- Add cards popup -->
     <div class="popup popup_type_add-cards">
       <div class="popup__container">
-        <form name="addCards" class="form form_type_addForm">
+        <form name="addCard" class="form form_type_add-card-form" novalidate>
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
-            <input type="text" name="placeName" placeholder="Название" required class="form__input form__input_place-name">
-            <input type="text" name="link" placeholder="Ссылка на картинку" required class="form__input form__input_link">
+            <label for="placeName" class="form__label">
+              <input id="place-input" type="text" name="placeName" placeholder="Название" class="form__input"  required>
+              <span id="place-input-error" class="form__input-error"></span>
+            </label>
+            <label for="link" class="form__label">
+              <input id="link-input" type="url" name="link" placeholder="Ссылка на картинку" class="form__input"  required>
+              <span id="link-input-error" class="form__input-error"></span>
+            </label>
           </fieldset>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
@@ -83,9 +95,12 @@
     <!-- Edit avatar popup -->
     <div class="popup popup_type_edit-avatar">
       <div class="popup__container">
-        <form name="avatar" class="form form_type_avatar">
+        <form name="avatar" class="form form_type_edit-avatar-form" novalidate>
           <h2 class="form__title">Обновить аватар</h2>
-          <input type="text" name="profile-avatar" placeholder="Ссылка на картинку" class="form__input" required>
+          <label for="profile-avatar" class="form__label">
+            <input id="avatar-input" type="url" name="profile-avatar" placeholder="Ссылка на картинку" class="form__input" required>
+            <span id="avatar-input-error" class="form__input-error"></span>
+          </label>
           <button type="submit" class="form__submit-btn">Сохранить</button>
         </form>
         <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
@@ -108,5 +123,6 @@
   <!-- Script -->
   <script src="./scripts/cards.js"></script>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 </html>

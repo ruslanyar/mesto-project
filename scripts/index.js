@@ -1,22 +1,31 @@
 const content = document.querySelector('.content');
-const popups = document.querySelector('.popups-wrapper');
-const editPopup = popups.querySelector('.popup_type_edit-profile');
+
+const cardTemplate = document.querySelector('.cards-template').content;
+const wrapElement = content.querySelector('.cards__list');
+
+const editBtn = content.querySelector('.profile__edit-button');
+const addBtn = content.querySelector('.profile__add-button');
+
 const profileName = content.querySelector('.profile__name');
 const profileJob = content.querySelector('.profile__job');
-const inputName = popups.querySelector('.form__input_name');
-const inputJob = popups.querySelector('.form__input_job');
+
+const avatarOverlay = content.querySelector('.profile__overlay');
+// Popups
+const popups = document.querySelector('.popups-wrapper');
+const editPopup = popups.querySelector('.popup_type_edit-profile');
 const addPopup = popups.querySelector('.popup_type_add-cards');
 const viewPopup = popups.querySelector('.popup_type_view');
 const editAvatarPopup = popups.querySelector('.popup_type_edit-avatar');
-const editBtn = content.querySelector('.profile__edit-button');
-const addBtn = content.querySelector('.profile__add-button');
-const editForm = popups.querySelector('.form_type_editForm');
-const addForm = popups.querySelector('.form_type_addForm');
-const editAvatarForm = popups.querySelector('.form_type_avatar');
-const cardTemplate = document.querySelector('.cards-template').content;
-const wrapElement = content.querySelector('.cards__list');
-const avatarOverlay = content.querySelector('.profile__overlay');
+// Forms
+const forms = document.forms;
+const editProfileFormElement = forms.profile;
+const addCardFormElement = forms.addCard;
+const editAvatarFormElement = forms.avatar;
+// Inputs
+const inputName = editProfileFormElement.elements.firstName;
+const inputJob = editProfileFormElement.elements.job;
 
+//! Создание шаблона карточки
 function createCardElement (title, link) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const cardImage = cardTemplateElement.querySelector('.cards__image');
@@ -29,6 +38,7 @@ function createCardElement (title, link) {
   return cardTemplateElement;
 }
 
+//! Заполнение карточки
 function renderCard(data, wrapElement) {
   const name = data.name;
   const link = data.link;
@@ -37,9 +47,10 @@ function renderCard(data, wrapElement) {
   wrapElement.prepend(card);
 }
 
-initialCards.forEach(function(obj) {
+//! Инициализация дефолтных карточек
+initialCards.forEach((obj) => {
   renderCard(obj, wrapElement);
-})
+});
 
 function openPopup (popupElement) {
   popupElement.classList.add('popup_opened');
@@ -58,7 +69,7 @@ function keyHandler(evt) {
   }
 }
 
-function openEditFormHandler() {
+function openEditProfileFormElementHandler() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 
@@ -71,43 +82,37 @@ function closePopupHandler(evt) {
   }
 }
 
-function submitEditFormHandler(evt) {
-  evt.preventDefault();
-
+function submitEditProfileFormElementHandler() {
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
 
   closePopup(editPopup);
 }
 
-function submitAddFormHandler(evt) {
-  evt.preventDefault();
-
-  const cardNameInput = popups.querySelector('.form__input_place-name');
-  const cardLinkInput = popups.querySelector('.form__input_link');
+function submitAddCardFormElementHandler() {
+  const cardNameInput = addCardFormElement.elements.placeName;
+  const cardLinkInput = addCardFormElement.elements.link;
   const cardObject = {
     name: cardNameInput.value,
     link: cardLinkInput.value
-  };
+  }
 
   renderCard(cardObject, wrapElement);
 
   closePopup(addPopup);
 
-  addForm.reset();
+  addCardFormElement.reset();
 }
 
-function submitEditAvatarHandler(evt) {
-  evt.preventDefault();
-
+function submitEditAvatarFormElementHandler() {
   const avatarImage = content.querySelector('.profile__avatar');
-  const inputEditAvatar = editAvatarForm.querySelector('.form__input');
+  const inputEditAvatar = editAvatarFormElement.querySelector('.form__input');
 
   avatarImage.src = inputEditAvatar.value;
 
   closePopup(editAvatarPopup);
 
-  editAvatarForm.reset();
+  editAvatarFormElement.reset();
 }
 
 function wrapElementHandler(evt) {
@@ -131,14 +136,11 @@ function wrapElementHandler(evt) {
   }
 }
 
-editBtn.addEventListener('click', openEditFormHandler);
+editBtn.addEventListener('click', openEditProfileFormElementHandler);
 addBtn.addEventListener('click', () => openPopup(addPopup));
 avatarOverlay.addEventListener('click', () => openPopup(editAvatarPopup));
-editForm.addEventListener('submit', submitEditFormHandler);
-addForm.addEventListener('submit', submitAddFormHandler);
 editPopup.addEventListener('click', closePopupHandler);
 addPopup.addEventListener('click', closePopupHandler);
-editAvatarForm.addEventListener('submit', submitEditAvatarHandler);
 viewPopup.addEventListener('click', closePopupHandler);
 editAvatarPopup.addEventListener('click', closePopupHandler);
 wrapElement.addEventListener('click', wrapElementHandler);
