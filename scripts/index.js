@@ -12,8 +12,8 @@ const profileJob = content.querySelector('.profile__job');
 const avatarOverlay = content.querySelector('.profile__overlay');
 // Popups
 const popups = document.querySelector('.popups-wrapper');
-const editPopup = popups.querySelector('.popup_type_edit-profile');
-const addPopup = popups.querySelector('.popup_type_add-cards');
+const editProfilePopup = popups.querySelector('.popup_type_edit-profile');
+const addCardPopup = popups.querySelector('.popup_type_add-cards');
 const viewPopup = popups.querySelector('.popup_type_view');
 const editAvatarPopup = popups.querySelector('.popup_type_edit-avatar');
 // Forms
@@ -73,7 +73,7 @@ function openEditProfileFormElementHandler() {
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
 
-  openPopup(editPopup);
+  openPopup(editProfilePopup);
 }
 
 function closePopupHandler(evt) {
@@ -86,7 +86,7 @@ function submitEditProfileFormElementHandler() {
   profileName.textContent = inputName.value;
   profileJob.textContent = inputJob.value;
 
-  closePopup(editPopup);
+  closePopup(editProfilePopup);
 }
 
 function submitAddCardFormElementHandler() {
@@ -99,7 +99,7 @@ function submitAddCardFormElementHandler() {
 
   renderCard(cardObject, wrapElement);
 
-  closePopup(addPopup);
+  closePopup(addCardPopup);
 
   addCardFormElement.reset();
 }
@@ -137,10 +137,10 @@ function wrapElementHandler(evt) {
 }
 
 editBtn.addEventListener('click', openEditProfileFormElementHandler);
-addBtn.addEventListener('click', () => openPopup(addPopup));
+addBtn.addEventListener('click', () => openPopup(addCardPopup));
 avatarOverlay.addEventListener('click', () => openPopup(editAvatarPopup));
-editPopup.addEventListener('click', closePopupHandler);
-addPopup.addEventListener('click', closePopupHandler);
+editProfilePopup.addEventListener('click', closePopupHandler);
+addCardPopup.addEventListener('click', closePopupHandler);
 viewPopup.addEventListener('click', closePopupHandler);
 editAvatarPopup.addEventListener('click', closePopupHandler);
 wrapElement.addEventListener('click', wrapElementHandler);
