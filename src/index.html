@@ -8,19 +8,18 @@
   <meta name="keywords" content="">
   <meta name="author" content="ruslanyar">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="wrapper">
     <!-- Header -->
     <header class="header page__header">
-      <img src="images/logo.svg" alt="логотип" class="header__logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="логотип" class="header__logo">
     </header>
     <!-- Content -->
     <main class="content">
       <!-- Profile -->
       <section class="profile page__profile">
-        <img src="images/avatar.jpg" alt="аватар" class="profile__avatar">
+        <img src="<%=require('./images/avatar.jpg')%>" alt="аватар" class="profile__avatar">
         <div class="profile__overlay"></div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -120,9 +119,5 @@
       <button type="button" aria-label="Удалить" class="cards__del-btn"></button>
     </li>
   </template>
-  <!-- Script -->
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/index.js"></script>
-  <script src="./scripts/validation.js"></script>
 </body>
 </html>
