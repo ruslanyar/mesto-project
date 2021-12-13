@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 const content = document.querySelector('.content');
 
 const cardTemplate = document.querySelector('.cards-template').content;
@@ -25,7 +27,6 @@ const editAvatarFormElement = forms.avatar;
 const inputName = editProfileFormElement.elements.firstName;
 const inputJob = editProfileFormElement.elements.job;
 
-//! Создание шаблона карточки
 function createCardElement (title, link) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const cardImage = cardTemplateElement.querySelector('.cards__image');
@@ -38,7 +39,6 @@ function createCardElement (title, link) {
   return cardTemplateElement;
 }
 
-//! Заполнение карточки
 function renderCard(data, wrapElement) {
   const name = data.name;
   const link = data.link;
@@ -47,7 +47,6 @@ function renderCard(data, wrapElement) {
   wrapElement.prepend(card);
 }
 
-//! Инициализация дефолтных карточек
 initialCards.forEach((obj) => {
   renderCard(obj, wrapElement);
 });
