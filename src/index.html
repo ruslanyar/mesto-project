@@ -48,11 +48,11 @@
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__field">
             <label for="firstName" class="form__label">
-              <input id="name-input" type="text" name="firstName" placeholder="Имя" class="form__input" minlength="2"  required>
+              <input id="name-input" type="text" name="firstName" placeholder="Имя" class="form__input" minlength="2" maxlength="40"  required>
               <span id="name-input-error" class="form__input-error"></span>
             </label>
             <label for="job" class="form__label">
-              <input id="job-input" type="text" name="job" placeholder="Профессия" class="form__input"  required>
+              <input id="job-input" type="text" name="job" placeholder="Профессия" class="form__input" minlength="2" maxlength="200" required>
               <span id="job-input-error" class="form__input-error"></span>
             </label>
           </fieldset>
@@ -68,7 +68,7 @@
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__field">
             <label for="placeName" class="form__label">
-              <input id="place-input" type="text" name="placeName" placeholder="Название" class="form__input"  required>
+              <input id="place-input" type="text" name="placeName" placeholder="Название" class="form__input" minlength="2" maxlength="30" required>
               <span id="place-input-error" class="form__input-error"></span>
             </label>
             <label for="link" class="form__label">
