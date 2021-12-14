@@ -1,27 +1,33 @@
-const showInputError = (formElement, inputElement, errorMessage) => {
+import {
+  submitEditProfilePopupHandler,
+  submitAddCardPopupHandler,
+  submitEditAvatarPopupHandler
+} from "./utils.js";
+
+const showInputError = (formElement, inputElement, errorMessage, configValidate) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
-  inputElement.classList.add('form__input_type_error');
+  inputElement.classList.add(configValidate.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(configValidate.errorClass);
 }
 
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, configValidate) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
+  inputElement.classList.remove(configValidate.inputErrorClass);
+  errorElement.classList.remove(configValidate.errorClass);
   errorElement.textContent = '';
 }
 
-const checkInputValidity = (formElement, inputElement) => {
+const checkInputValidity = (formElement, inputElement, configValidate) => {
   const inputIsValid = inputElement.validity.valid;
 
   if (!inputIsValid) {
     const errorMessage = inputElement.validationMessage;
-    showInputError(formElement, inputElement, errorMessage);
+    showInputError(formElement, inputElement, errorMessage, configValidate);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, configValidate);
   }
 }
 
@@ -31,48 +37,46 @@ const hasInvalidInput = (inputList) => {
   });
 }
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, configValidate) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__submit-btn_disabled');
+    buttonElement.classList.add(configValidate.disabledButtonClass);
     buttonElement.setAttribute('disabled', true);
   } else {
-    buttonElement.classList.remove('form__submit-btn_disabled');
+    buttonElement.classList.remove(configValidate.disabledButtonClass);
     buttonElement.removeAttribute('disabled');
   }
 }
 
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit-btn');
+const setEventListeners = (formElement, configValidate) => {
+  const inputList = Array.from(formElement.querySelectorAll(configValidate.inputSelector));
+  const buttonElement = formElement.querySelector(configValidate.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, configValidate);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', (evt) => {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      checkInputValidity(formElement, inputElement, configValidate);
+      toggleButtonState(inputList, buttonElement, configValidate);
     });
   });
 }
 
-const enableValidation = () => {
-  const formList = Array.from(forms);
+export const enableValidation = (configValidate) => {
+  const formList = Array.from(document.querySelectorAll(configValidate.formSelector));
 
   formList.forEach(formElement => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
 
-      if (formElement.classList.contains('form_type_edit-profile-form')) {
-        submitEditProfileFormElementHandler();
-      } else if (formElement.classList.contains('form_type_add-card-form')) {
-        submitAddCardFormElementHandler();
-      } else if (formElement.classList.contains('form_type_edit-avatar-form')) {
-        submitEditAvatarFormElementHandler();
+      if (formElement.classList.contains(configValidate.editProfileFormClass)) {
+        submitEditProfilePopupHandler();
+      } else if (formElement.classList.contains(configValidate.addCardFormClass)) {
+        submitAddCardPopupHandler();
+      } else if (formElement.classList.contains(configValidate.editAvatarFormClass)) {
+        submitEditAvatarPopupHandler();
       }
     });
 
-    setEventListeners(formElement);
+    setEventListeners(formElement, configValidate);
   });
 }
-
-enableValidation();
