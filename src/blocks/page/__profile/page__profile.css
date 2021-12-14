@@ -1,0 +1,15 @@
+.page__profile {
+  margin: 0 auto 50px;
+}
+
+@media all and (max-width: 768px) {
+  .page__profile {
+    margin: 0 19px 50px;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .page__profile {
+    margin: 0 19px 36px;
+  }
+}

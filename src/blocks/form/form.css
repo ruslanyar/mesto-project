@@ -1,0 +1,12 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 430px;
+}
+
+@media all and (max-width: 768px) {
+  .form {
+    width: 282px;
+  }
+}
