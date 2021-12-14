@@ -6,12 +6,12 @@ import {
   configValidate,
   configModal,
   objectPopup
-} from './constants.js';
+} from '../components/constants.js';
 
-import { openEditProfilePopupHandler, closePopupHandler, wrapElementHandler } from './utils.js';
-import { renderCard } from './card.js';
-import { openPopup } from './modal.js';
-import { enableValidation } from './validation.js';
+import { openEditProfilePopupHandler, closePopupHandler, wrapElementHandler } from '../components/utils.js';
+import { renderCard } from '../components/card.js';
+import { openPopup } from '../components/modal.js';
+import { enableValidation } from '../components/validation.js';
 
 initialCards.forEach((obj) => {
   renderCard(obj, wrapElement);
