@@ -27,5 +27,3 @@
 - HTML
 - CSS
 - JavaScript
-
-[Страница проекта](https://ruslanyar.github.io/mesto-project/)
