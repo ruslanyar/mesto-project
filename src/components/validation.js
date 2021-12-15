@@ -69,12 +69,15 @@ export const enableValidation = (configValidate) => {
       evt.preventDefault();
 
       if (formElement.classList.contains(configValidate.editProfileFormClass)) {
-        submitEditProfilePopupHandler();
+        submitEditProfilePopupHandler(evt);
       } else if (formElement.classList.contains(configValidate.addCardFormClass)) {
-        submitAddCardPopupHandler();
+        submitAddCardPopupHandler(evt);
       } else if (formElement.classList.contains(configValidate.editAvatarFormClass)) {
-        submitEditAvatarPopupHandler();
+        submitEditAvatarPopupHandler(evt);
       }
+
+      evt.submitter.disabled = true;
+      evt.submitter.classList.add(configValidate.disabledButtonClass);
     });
 
     setEventListeners(formElement, configValidate);
