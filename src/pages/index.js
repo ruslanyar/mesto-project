@@ -1,22 +1,20 @@
 import '../pages/index.css';
 
 import {
-  wrapElement,
-  initialCards,
   configValidate,
   configModal,
   objectPopup,
   popups
 } from '../components/constants.js';
 
-import { openEditProfilePopupHandler, closePopupHandler } from '../components/utils.js';
-import { renderCard } from '../components/card.js';
+import { openEditProfilePopupHandler, closePopupHandler, setProfile } from '../components/utils.js';
+import { setInitialCards } from '../components/card';
 import { openPopup } from '../components/modal.js';
 import { enableValidation } from '../components/validation.js';
 
-initialCards.forEach((obj) => {
-  renderCard(obj, wrapElement);
-});
+setProfile();
+
+setInitialCards();
 
 enableValidation(configValidate);
 

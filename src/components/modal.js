@@ -9,4 +9,3 @@ export function closePopup (popupElement) {
   popupElement.classList.remove('popup_opened');
   window.removeEventListener('keydown', keyHandler);
 }
-
