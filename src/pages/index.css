@@ -32,6 +32,8 @@
 @import url('../blocks/cards/__like-btn/cards__like-btn.css');
 @import url('../blocks/cards/__del-btn/cards__del-btn.css');
 @import url('../blocks/cards/__like-btn/_active/cards__like-btn_active.css');
+@import url('../blocks/cards/__like-wrapper/cards__like-wrapper.css');
+@import url('../blocks/cards/__like-count/cards__like-count.css');
 /* Footer */
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');

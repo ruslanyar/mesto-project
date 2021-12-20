@@ -75,9 +75,6 @@ export const enableValidation = (configValidate) => {
       } else if (formElement.classList.contains(configValidate.editAvatarFormClass)) {
         submitEditAvatarPopupHandler(evt);
       }
-
-      evt.submitter.disabled = true;
-      evt.submitter.classList.add(configValidate.disabledButtonClass);
     });
 
     setEventListeners(formElement, configValidate);

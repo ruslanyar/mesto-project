@@ -1,6 +1,7 @@
-import { ESC_KEY, content, popupsWrapper, objectPopup, configModal, configValidate, wrapElement } from './constants.js';
+import { ESC_KEY, popupsWrapper, objectPopup, configModal, configValidate, wrapElement, apiConfig } from './constants.js';
 import { openPopup, closePopup } from './modal.js';
 import { renderCard } from './card.js';
+import { getProfileData, patchProfileData, postNewCard, putLike, deleteLike, patchAvatar } from './api.js';
 
 export function keyHandler(evt) {
   if (evt.key === ESC_KEY) {
@@ -22,35 +23,92 @@ export function closePopupHandler(evt) {
   }
 }
 
-export function submitEditProfilePopupHandler() {
-  configModal.profileNameElement.textContent = configModal.inputNameElement.value;
-  configModal.profileJobElement.textContent = configModal.inputJobElement.value;
-
-  closePopup(objectPopup.editProfilePopup);
+function setButtonState(button, isSending) {
+  button.disabled = isSending;
+  button.textContent = isSending ? 'Сохранение...' : 'Сохранить';
 }
 
-export function submitAddCardPopupHandler() {
+export function submitEditProfilePopupHandler(evt) {
+
+  setButtonState(evt.submitter, true);
+
+  patchProfileData(configModal.inputNameElement.value, configModal.inputJobElement.value)
+    .then((res) => {
+      configModal.profileNameElement.textContent = res.name;
+      configModal.profileJobElement.textContent = res.about;
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      setButtonState(evt.submitter, false);
+      evt.submitter.classList.add(configValidate.disabledButtonClass);
+      closePopup(objectPopup.editProfilePopup);
+    });
+}
+
+export function submitAddCardPopupHandler(evt) {
   const addCardForm = popupsWrapper.querySelector(`.${configValidate.addCardFormClass}`);
-  const cardObject = {
-    name: configModal.inputCardPlaceElement.value,
-    link: configModal.inputCardLinkElement.value
-  }
 
-  renderCard(cardObject, wrapElement);
+  setButtonState(evt.submitter, true);
 
-  closePopup(objectPopup.addCardPopup);
-
-  addCardForm.reset();
+  postNewCard(configModal.inputCardPlaceElement.value, configModal.inputCardLinkElement.value)
+    .then((card) => {
+      renderCard(card, wrapElement);
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      setButtonState(evt.submitter, false);
+      evt.submitter.classList.add(configValidate.disabledButtonClass);
+      closePopup(objectPopup.addCardPopup);
+      addCardForm.reset();
+    });
 }
 
-export function submitEditAvatarPopupHandler() {
-  const avatarImage = content.querySelector('.profile__avatar');
+export function submitEditAvatarPopupHandler(evt) {
   const editAvatarForm = popupsWrapper.querySelector(`.${configValidate.editAvatarFormClass}`);
   const inputEditAvatar = editAvatarForm.querySelector('.form__input');
 
-  avatarImage.src = inputEditAvatar.value;
+  setButtonState(evt.submitter, true);
 
-  closePopup(objectPopup.editAvatarPopup);
+  patchAvatar(inputEditAvatar.value)
+    .then((res) => {
+      configModal.avatarImage.src = res.avatar;
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+      setButtonState(evt.submitter, false);
+      closePopup(objectPopup.editAvatarPopup);
+      editAvatarForm.reset();
+    })
+}
 
-  editAvatarForm.reset();
+export function setProfile() {
+  getProfileData()
+    .then(data => {
+      configModal.profileNameElement.textContent = data.name;
+      configModal.profileJobElement.textContent = data.about;
+      configModal.avatarImage.src = data.avatar;
+    })
+    .catch(err => console.log(err))
+}
+
+export function hasLike(card) {
+  return card.likes.some(obj => obj._id == apiConfig.id)
+}
+
+export function toggleLike(card, likeCounter, evt) {
+  if (hasLike(card)) {
+    deleteLike(card._id)
+      .then((card) => {
+        likeCounter.textContent = card.likes.length;
+        evt.target.classList.remove('cards__like-btn_active');
+      })
+      .catch(err => console.log(err))
+  } else {
+    putLike(card._id)
+      .then((card) => {
+        likeCounter.textContent = card.likes.length;
+        evt.target.classList.add('cards__like-btn_active');
+      })
+      .catch(err => console.log(err))
+  }
 }
