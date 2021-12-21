@@ -1,7 +1,11 @@
-import { cardTemplate, popupsWrapper, objectPopup, wrapElement, apiConfig } from './constants.js';
+import { cardTemplate, popupsWrapper, objectPopup } from './constants.js';
 import { openPopup } from './modal.js';
 import { deleteCard, getCards } from './api.js';
 import { hasLike, toggleLike } from './utils.js';
+import { userId } from '../pages/index.js';
+
+const viewImage = popupsWrapper.querySelector('.popup__view-image');
+const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
 
 function createDeleteBtn(card) {
   const delBtn = document.createElement('button');
@@ -39,7 +43,7 @@ function createCardElement (title, link, data) {
   cardImage.alt = title;
   likeCounter.textContent = data.likes.length;
 
-  if (data.owner._id === apiConfig.id) {
+  if (data.owner._id === userId) {
     addDeleteBtn(cardTemplateElement, data);
   }
 
@@ -59,9 +63,6 @@ function createCardElement (title, link, data) {
   });
 
   cardImage.addEventListener('click', (evt) => {
-    const viewImage = popupsWrapper.querySelector('.popup__view-image');
-    const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
-
     viewImage.src = evt.target.currentSrc;
     viewImage.alt = evt.target.alt;
     viewCaption.textContent = evt.target.alt;
@@ -78,14 +79,4 @@ export function renderCard(data, wrapElement) {
   const card = createCardElement(name, link, data);
 
   wrapElement.prepend(card);
-}
-
-export function setInitialCards() {
-  getCards()
-    .then(cards => {
-      cards.reverse().forEach(card => {
-        renderCard(card, wrapElement);
-      });
-    })
-    .catch(err => console.log(err))
 }

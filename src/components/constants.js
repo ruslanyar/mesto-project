@@ -10,8 +10,7 @@ export const apiConfig = {
   headers: {
     authorization: '15bc8486-d99e-482f-a261-777fcdb33804',
     'Content-Type': 'application/json'
-  },
-  id: '1fc4c54d52ca7aa60de1feee'
+  }
 }
 
 export const objectPopup = {
