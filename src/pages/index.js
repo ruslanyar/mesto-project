@@ -1,14 +1,14 @@
-let userId;
 import '../pages/index.css';
 
 import {
   configValidate,
   configModal,
   objectPopup,
-  popups
+  popups,
+  popupsWrapper
 } from '../components/constants.js';
 
-import { openEditProfilePopupHandler, closePopupHandler, setProfile } from '../components/utils.js';
+import { openEditProfilePopupHandler, closePopupHandler, setProfile, submitEditProfilePopupHandler, submitAddCardPopupHandler, submitEditAvatarPopupHandler } from '../components/utils.js';
 import { setInitialCards } from '../components/card';
 import { openPopup } from '../components/modal.js';
 import { enableValidation } from '../components/validation.js';
@@ -22,6 +22,15 @@ enableValidation(configValidate);
 configModal.openEditPopupBtnElement.addEventListener('click', openEditProfilePopupHandler);
 configModal.openAddPopupBtnElement.addEventListener('click', () => openPopup(objectPopup.addCardPopup));
 configModal.openAvatarPopupElement.addEventListener('click', () => openPopup(objectPopup.editAvatarPopup));
+popupsWrapper.querySelector(`.${configValidate.editProfileFormClass}`).addEventListener('submit', (evt) => {
+  submitEditProfilePopupHandler(evt);
+});
+popupsWrapper.querySelector(`.${configValidate.addCardFormClass}`).addEventListener('submit', (evt) => {
+  submitAddCardPopupHandler(evt);
+});
+popupsWrapper.querySelector(`.${configValidate.editAvatarFormClass}`).addEventListener('submit', (evt) => {
+  submitEditAvatarPopupHandler(evt);
+})
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     closePopupHandler(evt);
