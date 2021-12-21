@@ -7,45 +7,30 @@ import { userId } from '../pages/index.js';
 const viewImage = popupsWrapper.querySelector('.popup__view-image');
 const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
 
-function createDeleteBtn(card) {
-  const delBtn = document.createElement('button');
-
-  delBtn.setAttribute('type', 'button');
-  delBtn.setAttribute('aria-label', 'Удалить');
-  delBtn.classList.add('cards__del-btn');
-
-  delBtn.addEventListener('click', (evt) => {
-    deleteCard(card._id)
-      .then(() => {
-        evt.target.parentNode.remove();
-      })
-      .catch(err => console.log(err))
-  });
-
-  return delBtn;
-}
-
-function addDeleteBtn(wrapper, card) {
-  const delBtn = createDeleteBtn(card);
-
-  wrapper.append(delBtn);
-}
-
 function createCardElement (title, link, data) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
   const cardImage = cardTemplateElement.querySelector('.cards__image');
   const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
   const likeBtn = cardTemplateElement.querySelector('.cards__like-btn');
   const likeCounter = cardTemplateElement.querySelector('.cards__like-count');
+  const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
 
   cardTitle.textContent = title;
   cardImage.src = link;
   cardImage.alt = title;
   likeCounter.textContent = data.likes.length;
 
-  if (data.owner._id === userId) {
-    addDeleteBtn(cardTemplateElement, data);
+  if (data.owner._id !== userId) {
+    delBtn.remove();
   }
+
+  delBtn.addEventListener('click', (evt) => {
+    deleteCard(data._id)
+      .then(() => {
+        evt.target.closest('.cards__list-item').remove();
+      })
+      .catch(err => console.log(err))
+  });
 
   if (hasLike(data)) {
     likeBtn.classList.add('cards__like-btn_active');
