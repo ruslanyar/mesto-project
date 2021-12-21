@@ -1,3 +1,4 @@
+let userId;
 import '../pages/index.css';
 
 import {

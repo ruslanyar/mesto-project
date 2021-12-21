@@ -3,6 +3,11 @@ import { openPopup, closePopup } from './modal.js';
 import { renderCard } from './card.js';
 import { getProfileData, patchProfileData, postNewCard, putLike, deleteLike, patchAvatar } from './api.js';
 
+const editProfileForm = popupsWrapper.querySelector(`.${configValidate.editProfileFormClass}`);
+const addCardForm = popupsWrapper.querySelector(`.${configValidate.addCardFormClass}`);
+const editAvatarForm = popupsWrapper.querySelector(`.${configValidate.editAvatarFormClass}`);
+const inputEditAvatar = editAvatarForm.querySelector('.form__input');
+
 export function keyHandler(evt) {
   if (evt.key === ESC_KEY) {
     const popupOpened = popupsWrapper.querySelector('.popup_opened');
@@ -23,61 +28,61 @@ export function closePopupHandler(evt) {
   }
 }
 
-function setButtonState(button, isSending) {
-  button.disabled = isSending;
-  button.textContent = isSending ? 'Сохранение...' : 'Сохранить';
-}
-
 export function submitEditProfilePopupHandler(evt) {
-
-  setButtonState(evt.submitter, true);
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
 
   patchProfileData(configModal.inputNameElement.value, configModal.inputJobElement.value)
     .then((res) => {
       configModal.profileNameElement.textContent = res.name;
       configModal.profileJobElement.textContent = res.about;
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      setButtonState(evt.submitter, false);
       evt.submitter.classList.add(configValidate.disabledButtonClass);
+      evt.submitter.textContent = 'Сохранить';
       closePopup(objectPopup.editProfilePopup);
-    });
+      editProfileForm.reset();
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
+    })
 }
 
 export function submitAddCardPopupHandler(evt) {
-  const addCardForm = popupsWrapper.querySelector(`.${configValidate.addCardFormClass}`);
-
-  setButtonState(evt.submitter, true);
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
 
   postNewCard(configModal.inputCardPlaceElement.value, configModal.inputCardLinkElement.value)
     .then((card) => {
       renderCard(card, wrapElement);
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      setButtonState(evt.submitter, false);
       evt.submitter.classList.add(configValidate.disabledButtonClass);
+      evt.submitter.textContent = 'Сохранить';
       closePopup(objectPopup.addCardPopup);
       addCardForm.reset();
-    });
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
+    })
 }
 
 export function submitEditAvatarPopupHandler(evt) {
-  const editAvatarForm = popupsWrapper.querySelector(`.${configValidate.editAvatarFormClass}`);
-  const inputEditAvatar = editAvatarForm.querySelector('.form__input');
-
-  setButtonState(evt.submitter, true);
+  evt.submitter.textContent = 'Сохранение...';
+  evt.submitter.disabled = true;
 
   patchAvatar(inputEditAvatar.value)
     .then((res) => {
       configModal.avatarImage.src = res.avatar;
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      setButtonState(evt.submitter, false);
+      evt.submitter.classList.add(configValidate.disabledButtonClass);
+      evt.submitter.textContent = 'Сохранить';
       closePopup(objectPopup.editAvatarPopup);
       editAvatarForm.reset();
+    })
+    .catch(err => {
+      console.log(err);
+      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
+      evt.submitter.disabled = false;
     })
 }
 
