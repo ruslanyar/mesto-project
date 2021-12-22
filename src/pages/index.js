@@ -9,7 +9,13 @@ import {
   wrapElement
 } from '../components/constants.js';
 
-import { openEditProfilePopupHandler, closePopupHandler, submitEditProfileFormHandler, submitAddCardFormHandler, submitEditAvatarFormHandler } from '../components/utils.js';
+import {
+  openEditProfilePopupHandler,
+  closePopupHandler,
+  submitEditProfileFormHandler,
+  submitAddCardFormHandler,
+  submitEditAvatarFormHandler
+} from '../components/utils.js';
 import { openPopup } from '../components/modal.js';
 import { enableValidation } from '../components/validation.js';
 import { getCards, getUserData } from '../components/api';

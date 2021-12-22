@@ -1,7 +1,7 @@
 import { ESC_KEY, popupsWrapper, objectPopup, configModal, configValidate, wrapElement } from './constants.js';
 import { openPopup, closePopup } from './modal.js';
 import { renderCard } from './card.js';
-import { patchProfileData, postNewCard, putLike, deleteLike, patchAvatar } from './api.js';
+import { patchProfileData, postNewCard, patchAvatar } from './api.js';
 import { userId } from '../pages/index.js';
 
 const editProfileForm = popupsWrapper.querySelector(`.${configValidate.editProfileFormClass}`);
@@ -89,22 +89,4 @@ export function submitEditAvatarFormHandler(evt) {
 
 export function hasLike(card) {
   return card.likes.some(obj => obj._id == userId)
-}
-
-export function toggleLike(card, likeCounter, evt) {
-  if (hasLike(card)) {
-    deleteLike(card._id)
-      .then((card) => {
-        likeCounter.textContent = card.likes.length;
-        evt.target.classList.remove('cards__like-btn_active');
-      })
-      .catch(err => console.log(err))
-  } else {
-    putLike(card._id)
-      .then((card) => {
-        likeCounter.textContent = card.likes.length;
-        evt.target.classList.add('cards__like-btn_active');
-      })
-      .catch(err => console.log(err))
-  }
 }

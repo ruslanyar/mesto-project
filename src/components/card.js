@@ -1,7 +1,7 @@
 import { cardTemplate, popupsWrapper, objectPopup } from './constants.js';
 import { openPopup } from './modal.js';
-import { deleteCard, getCards } from './api.js';
-import { hasLike, toggleLike } from './utils.js';
+import { deleteCard, putLike, deleteLike } from './api.js';
+import { hasLike } from './utils.js';
 import { userId } from '../pages/index.js';
 
 const viewImage = popupsWrapper.querySelector('.popup__view-image');
@@ -37,14 +37,23 @@ function createCardElement (title, link, data) {
   }
 
   likeBtn.addEventListener('click', (evt) => {
-    getCards()
-      .then(cards => {
-        return cards.find(card => card._id === data._id)
-      })
-      .then(card => {
-        toggleLike(card, likeCounter, evt)
-      })
-      .catch(err => console.log(err))
+    if (hasLike(data)) {
+      deleteLike(data._id)
+        .then((card) => {
+          data = card;
+          likeCounter.textContent = card.likes.length;
+          evt.target.classList.remove('cards__like-btn_active');
+        })
+        .catch(err => console.log(err))
+    } else {
+      putLike(data._id)
+        .then((card) => {
+          data = card;
+          likeCounter.textContent = card.likes.length;
+          evt.target.classList.add('cards__like-btn_active');
+        })
+        .catch(err => console.log(err))
+    }
   });
 
   cardImage.addEventListener('click', (evt) => {
