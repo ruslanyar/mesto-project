@@ -4,6 +4,9 @@ export const cardTemplate = document.querySelector('.cards-template').content;
 export const wrapElement = content.querySelector('.cards__list');
 export const ESC_KEY = 'Escape';
 export const popups = popupsWrapper.querySelectorAll('.popup');
+export const editProfileForm = document.forms.profile;
+export const addCardForm = document.forms.addCard;
+export const editAvatarForm = document.forms.avatar;
 
 export const apiConfig = {
   baseURL: 'https://nomoreparties.co/v1/plus-cohort-5',
@@ -35,9 +38,6 @@ export const configModal = {
 
 export const configValidate = {
   formSelector: '.form',
-  editProfileFormClass: 'form_type_edit-profile-form',
-  addCardFormClass: 'form_type_add-card-form',
-  editAvatarFormClass: 'form_type_edit-avatar-form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__submit-btn',
   disabledButtonClass: 'form__submit-btn_disabled',

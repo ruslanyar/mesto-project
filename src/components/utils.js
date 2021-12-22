@@ -1,12 +1,20 @@
-import { ESC_KEY, popupsWrapper, objectPopup, configModal, configValidate, wrapElement } from './constants.js';
+import {
+  ESC_KEY,
+  popupsWrapper,
+  objectPopup,
+  configModal,
+  configValidate,
+  wrapElement,
+  editAvatarForm,
+  editProfileForm,
+  addCardForm,
+} from './constants.js';
+
 import { openPopup, closePopup } from './modal.js';
 import { renderCard } from './card.js';
 import { patchProfileData, postNewCard, patchAvatar } from './api.js';
 import { userId } from '../pages/index.js';
 
-const editProfileForm = popupsWrapper.querySelector(`.${configValidate.editProfileFormClass}`);
-const addCardForm = popupsWrapper.querySelector(`.${configValidate.addCardFormClass}`);
-const editAvatarForm = popupsWrapper.querySelector(`.${configValidate.editAvatarFormClass}`);
 const inputEditAvatar = editAvatarForm.querySelector('.form__input');
 
 export function keyHandler(evt) {
@@ -57,7 +65,7 @@ export function submitAddCardFormHandler(evt) {
     .then((card) => {
       renderCard(card, wrapElement);
       evt.submitter.classList.add(configValidate.disabledButtonClass);
-      evt.submitter.textContent = 'Сохранить';
+      evt.submitter.textContent = 'Создать';
       closePopup(objectPopup.addCardPopup);
       addCardForm.reset();
     })
