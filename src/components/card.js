@@ -1,31 +1,11 @@
-import { cardTemplate, popupsWrapper, objectPopup, wrapElement, apiConfig } from './constants.js';
+import { cardTemplate, popupsWrapper, objectPopup } from './constants.js';
 import { openPopup } from './modal.js';
-import { deleteCard, getCards } from './api.js';
-import { hasLike, toggleLike } from './utils.js';
+import { deleteCard, putLike, deleteLike } from './api.js';
+import { hasLike } from './utils.js';
+import { userId } from '../pages/index.js';
 
-function createDeleteBtn(card) {
-  const delBtn = document.createElement('button');
-
-  delBtn.setAttribute('type', 'button');
-  delBtn.setAttribute('aria-label', 'Удалить');
-  delBtn.classList.add('cards__del-btn');
-
-  delBtn.addEventListener('click', (evt) => {
-    deleteCard(card._id)
-      .then(() => {
-        evt.target.parentNode.remove();
-      })
-      .catch(err => console.log(err))
-  });
-
-  return delBtn;
-}
-
-function addDeleteBtn(wrapper, card) {
-  const delBtn = createDeleteBtn(card);
-
-  wrapper.append(delBtn);
-}
+const viewImage = popupsWrapper.querySelector('.popup__view-image');
+const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
 
 function createCardElement (title, link, data) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
@@ -33,35 +13,50 @@ function createCardElement (title, link, data) {
   const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
   const likeBtn = cardTemplateElement.querySelector('.cards__like-btn');
   const likeCounter = cardTemplateElement.querySelector('.cards__like-count');
+  const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
 
   cardTitle.textContent = title;
   cardImage.src = link;
   cardImage.alt = title;
   likeCounter.textContent = data.likes.length;
 
-  if (data.owner._id === apiConfig.id) {
-    addDeleteBtn(cardTemplateElement, data);
+  if (data.owner._id !== userId) {
+    delBtn.remove();
   }
+
+  delBtn.addEventListener('click', (evt) => {
+    deleteCard(data._id)
+      .then(() => {
+        evt.target.closest('.cards__list-item').remove();
+      })
+      .catch(err => console.log(err))
+  });
 
   if (hasLike(data)) {
     likeBtn.classList.add('cards__like-btn_active');
   }
 
   likeBtn.addEventListener('click', (evt) => {
-    getCards()
-      .then(cards => {
-        return cards.find(card => card._id === data._id)
-      })
-      .then(card => {
-        toggleLike(card, likeCounter, evt)
-      })
-      .catch(err => console.log(err))
+    if (hasLike(data)) {
+      deleteLike(data._id)
+        .then((card) => {
+          data = card;
+          likeCounter.textContent = card.likes.length;
+          evt.target.classList.remove('cards__like-btn_active');
+        })
+        .catch(err => console.log(err))
+    } else {
+      putLike(data._id)
+        .then((card) => {
+          data = card;
+          likeCounter.textContent = card.likes.length;
+          evt.target.classList.add('cards__like-btn_active');
+        })
+        .catch(err => console.log(err))
+    }
   });
 
   cardImage.addEventListener('click', (evt) => {
-    const viewImage = popupsWrapper.querySelector('.popup__view-image');
-    const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
-
     viewImage.src = evt.target.currentSrc;
     viewImage.alt = evt.target.alt;
     viewCaption.textContent = evt.target.alt;
@@ -78,14 +73,4 @@ export function renderCard(data, wrapElement) {
   const card = createCardElement(name, link, data);
 
   wrapElement.prepend(card);
-}
-
-export function setInitialCards() {
-  getCards()
-    .then(cards => {
-      cards.reverse().forEach(card => {
-        renderCard(card, wrapElement);
-      });
-    })
-    .catch(err => console.log(err))
 }

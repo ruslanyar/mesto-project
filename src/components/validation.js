@@ -1,9 +1,3 @@
-import {
-  submitEditProfilePopupHandler,
-  submitAddCardPopupHandler,
-  submitEditAvatarPopupHandler
-} from "./utils.js";
-
 const showInputError = (formElement, inputElement, errorMessage, configValidate) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
@@ -67,14 +61,6 @@ export const enableValidation = (configValidate) => {
   formList.forEach(formElement => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-
-      if (formElement.classList.contains(configValidate.editProfileFormClass)) {
-        submitEditProfilePopupHandler(evt);
-      } else if (formElement.classList.contains(configValidate.addCardFormClass)) {
-        submitAddCardPopupHandler(evt);
-      } else if (formElement.classList.contains(configValidate.editAvatarFormClass)) {
-        submitEditAvatarPopupHandler(evt);
-      }
     });
 
     setEventListeners(formElement, configValidate);

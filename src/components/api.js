@@ -8,7 +8,7 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`)
 }
 
-export function getProfileData() {
+export function getUserData() {
   return fetch(`${apiConfig.baseURL}/users/me`, {
     headers: apiConfig.headers
   })
