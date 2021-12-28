@@ -1,7 +1,7 @@
-import { cardTemplate, popupsWrapper, objectPopup } from './constants.js';
+import { cardTemplate, popupsWrapper, objectPopup, confirmDeleteForm } from './constants.js';
 import { openPopup } from './modal.js';
-import { deleteCard, putLike, deleteLike } from './api.js';
-import { hasLike } from './utils.js';
+import { putLike, deleteLike } from './api.js';
+import { hasLike, submitConfirmDeleteFormHandler } from './utils.js';
 import { userId } from '../pages/index.js';
 
 const viewImage = popupsWrapper.querySelector('.popup__view-image');
@@ -24,13 +24,10 @@ function createCardElement (title, link, data) {
     delBtn.remove();
   }
 
-  delBtn.addEventListener('click', (evt) => {
-    deleteCard(data._id)
-      .then(() => {
-        evt.target.closest('.cards__list-item').remove();
-      })
-      .catch(err => console.log(err))
-  });
+  delBtn.addEventListener('click', (e) => {
+    openPopup(objectPopup.confirmDeletePopup);
+    confirmDeleteForm.addEventListener('submit', (evt) => submitConfirmDeleteFormHandler(evt, data, e));
+  })
 
   if (hasLike(data)) {
     likeBtn.classList.add('cards__like-btn_active');
