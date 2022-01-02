@@ -12,7 +12,7 @@ import {
 
 import { openPopup, closePopup } from './modal.js';
 import { renderCard } from './card.js';
-import { patchProfileData, postNewCard, patchAvatar, deleteCard } from './api.js';
+import { patchProfileData, postNewCard, patchAvatar } from './api.js';
 import { userId } from '../pages/index.js';
 
 const inputEditAvatar = editAvatarForm.querySelector('.form__input');
@@ -91,25 +91,6 @@ export function submitEditAvatarFormHandler(evt) {
     .catch(err => {
       console.log(err);
       evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
-      evt.submitter.disabled = false;
-    })
-}
-
-export function submitConfirmDeleteFormHandler(evt, data, e) {
-  evt.submitter.textContent = 'Удаление...';
-  evt.submitter.disabled = true;
-
-  deleteCard(data._id)
-    .then(() => {
-      e.target.closest('.cards__list-item').remove();
-      closePopup(objectPopup.confirmDeletePopup);
-      evt.submitter.textContent = 'Да';
-    })
-    .catch(err => {
-      console.log(err);
-      evt.submitter.textContent = 'Ошибка! Попробуйте ещё раз';
-    })
-    .finally(() => {
       evt.submitter.disabled = false;
     })
 }

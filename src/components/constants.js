@@ -7,7 +7,6 @@ export const popups = popupsWrapper.querySelectorAll('.popup');
 export const editProfileForm = document.forms.profile;
 export const addCardForm = document.forms.addCard;
 export const editAvatarForm = document.forms.avatar;
-export const confirmDeleteForm = document.forms.confirm;
 
 export const apiConfig = {
   baseURL: 'https://nomoreparties.co/v1/plus-cohort-5',
@@ -21,8 +20,7 @@ export const objectPopup = {
   editProfilePopup: popupsWrapper.querySelector('.popup_type_edit-profile'),
   addCardPopup: popupsWrapper.querySelector('.popup_type_add-cards'),
   viewPopup: popupsWrapper.querySelector('.popup_type_view'),
-  editAvatarPopup: popupsWrapper.querySelector('.popup_type_edit-avatar'),
-  confirmDeletePopup: popupsWrapper.querySelector('.popup_type_confirm-delete'),
+  editAvatarPopup: popupsWrapper.querySelector('.popup_type_edit-avatar')
 }
 
 export const configModal = {
