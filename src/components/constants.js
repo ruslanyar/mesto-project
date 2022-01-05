@@ -7,6 +7,7 @@ export const popups = popupsWrapper.querySelectorAll('.popup');
 export const editProfileForm = document.forms.profile;
 export const addCardForm = document.forms.addCard;
 export const editAvatarForm = document.forms.avatar;
+export const confirmDeleteForm = document.forms.confirm;
 
 export const apiConfig = {
   baseURL: 'https://nomoreparties.co/v1/plus-cohort-5',
