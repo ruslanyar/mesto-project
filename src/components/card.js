@@ -1,11 +1,12 @@
 import { cardTemplate, popupsWrapper, objectPopup, confirmDeleteForm } from './constants.js';
-import { openPopup } from './modal.js';
-import { putLike, deleteLike } from './api.js';
-import { hasLike, submitConfirmDeleteFormHandler } from './utils.js';
+import { closePopup, openPopup } from './modal.js';
+import { putLike, deleteLike, deleteCard } from './api.js';
+import { hasLike } from './utils.js';
 import { userId } from '../pages/index.js';
 
 const viewImage = popupsWrapper.querySelector('.popup__view-image');
 const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
+const confirmDeleteSubmitBtn = confirmDeleteForm.querySelector('.form__submit-btn');
 
 function createCardElement (title, link, data) {
   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
@@ -14,6 +15,32 @@ function createCardElement (title, link, data) {
   const likeBtn = cardTemplateElement.querySelector('.cards__like-btn');
   const likeCounter = cardTemplateElement.querySelector('.cards__like-count');
   const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
+
+  const deleteHandler = function() {
+    confirmDeleteSubmitBtn.textContent = 'Удаление...';
+    confirmDeleteSubmitBtn.disabled = true;
+
+    deleteCard(data._id)
+      .then(() => {
+        confirmDeleteForm.removeEventListener('submit', deleteHandler);
+        cardTemplateElement.remove();
+        closePopup(objectPopup.confirmDeletePopup);
+        confirmDeleteSubmitBtn.textContent = 'Да';
+      })
+      .catch(err => {
+        console.log(err);
+        confirmDeleteSubmitBtn.textContent = 'Ошибка! Попробуйте ещё раз';
+      })
+      .finally(() => {
+        confirmDeleteSubmitBtn.disabled = false;
+      })
+  }
+
+  objectPopup.confirmDeletePopup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
+      confirmDeleteForm.removeEventListener('submit', deleteHandler);
+    }
+  })
 
   cardTitle.textContent = title;
   cardImage.src = link;
@@ -26,7 +53,7 @@ function createCardElement (title, link, data) {
 
   delBtn.addEventListener('click', (e) => {
     openPopup(objectPopup.confirmDeletePopup);
-    confirmDeleteForm.addEventListener('submit', (evt) => submitConfirmDeleteFormHandler(evt, data, e));
+    confirmDeleteForm.addEventListener('submit', deleteHandler);
   })
 
   if (hasLike(data)) {
