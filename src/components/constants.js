@@ -21,7 +21,8 @@ export const objectPopup = {
   editProfilePopup: popupsWrapper.querySelector('.popup_type_edit-profile'),
   addCardPopup: popupsWrapper.querySelector('.popup_type_add-cards'),
   viewPopup: popupsWrapper.querySelector('.popup_type_view'),
-  editAvatarPopup: popupsWrapper.querySelector('.popup_type_edit-avatar')
+  editAvatarPopup: popupsWrapper.querySelector('.popup_type_edit-avatar'),
+  confirmDeletePopup: popupsWrapper.querySelector('.popup_type_confirm-delete'),
 }
 
 export const configModal = {
