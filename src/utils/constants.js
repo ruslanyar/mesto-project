@@ -17,6 +17,14 @@ export const apiConfig = {
   }
 }
 
+export const cardConfig = {
+  templateSelector: '.cards-template',
+  contentSelector: '.cards__list-item',
+  likeBtnSelector: '.cards__like-btn',
+  deleteBtnSelector: '.cards__del-btn',
+  cardImageSelector: '.cards__image',
+};
+
 export const objectPopup = {
   editProfilePopup: popupsWrapper.querySelector('.popup_type_edit-profile'),
   addCardPopup: popupsWrapper.querySelector('.popup_type_add-cards'),

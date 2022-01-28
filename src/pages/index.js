@@ -20,19 +20,26 @@ import {
 } from '../components/utils.js';
 import { openPopup } from '../components/modal.js';
 import { enableValidation } from '../components/validation.js';
-import { getCards, getUserData } from '../components/api';
-import { renderCard } from '../components/card';
+import Api from '../components/Api';
+import Card, { renderCard } from '../components/Card';
+import { cardConfig } from '../utils/constants';
 
 export let userId;
 
-Promise.all([getUserData(), getCards()])
+const api = new Api();
+
+Promise.all([api.getUser('/users/me'), api.getInitialCards('/cards')])
   .then(([userData, cards]) => {
     userId = userData._id;
     configModal.profileNameElement.textContent = userData.name;
     configModal.profileJobElement.textContent = userData.about;
     configModal.avatarImage.src = userData.avatar;
+
     cards.reverse().forEach(card => {
-      renderCard(card, wrapElement);
+      const card = new Card(card, cardConfig,
+        {
+
+        });
     });
   })
   .catch(err => console.log(err))

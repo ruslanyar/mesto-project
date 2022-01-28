@@ -11,8 +11,7 @@ import {
 } from './constants.js';
 
 import { openPopup, closePopup } from './modal.js';
-import { renderCard } from './card.js';
-import { patchProfileData, postNewCard, patchAvatar } from './api.js';
+import { renderCard } from './Card.js';
 import { userId } from '../pages/index.js';
 
 const inputEditAvatar = editAvatarForm.querySelector('.form__input');
@@ -95,6 +94,6 @@ export function submitEditAvatarFormHandler(evt) {
     })
 }
 
-export function hasLike(card) {
-  return card.likes.some(obj => obj._id == userId)
-}
+// export function hasLike(card) {
+//   return card.likes.some(obj => obj._id == userId)
+// }
