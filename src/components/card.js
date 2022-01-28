@@ -1,14 +1,10 @@
-const viewImage = popupsWrapper.querySelector('.popup__view-image');
-const viewCaption = popupsWrapper.querySelector('.popup__view-caption');
-const confirmDeleteSubmitBtn = confirmDeleteForm.querySelector('.form__submit-btn');
-
 export default class Card {
   constructor(
     {
       name,
       link,
-      _id,
       owner,
+      _id,
       likes,
     },
     {
@@ -17,11 +13,14 @@ export default class Card {
       likeBtnSelector,
       deleteBtnSelector,
       cardImageSelector,
+      likeBtnIsActiveClass,
+      likeCounterSelector,
+      cardCaptionTextSelector,
     },
     {
+      handleLike,
+      handleDislike,
       handleCardImageClick,
-      handlePutLike,
-      handleDeleteLike,
       handleDeleteClick,
     },
     userId
@@ -29,18 +28,22 @@ export default class Card {
     this._userId = userId;
     this._cardName = name;
     this._cardLink = link;
-    this._cardId = _id;
     this._owner = owner;
+    this._cardId = _id;
     this._likes = likes;
     this._templateSelector = templateSelector;
     this._contentSelector = contentSelector;
     this._likeBtnSelector = likeBtnSelector;
     this._deleteBtnSelector = deleteBtnSelector;
     this._cardImageSelector = cardImageSelector;
+    this._likeBtnIsActiveClass = likeBtnIsActiveClass;
+    this._likeCounterSelector = likeCounterSelector;
+    this._cardCaptionTextSelector = cardCaptionTextSelector;
+
     // Функции-колбэки
     this._handleCardImageClick = handleCardImageClick;
-    this._handlePutLike = handlePutLike;
-    this._handleDeleteLike = handleDeleteLike;
+    this._handleLike = handleLike;
+    this._handleDislike = handleDislike;
     this._handleDeleteClick = handleDeleteClick;
   }
 
@@ -48,131 +51,172 @@ export default class Card {
     this._element = this._getElement();
 
     this._setEventListeners();
+    this._setDeleteContext();
+    this._setCardImage();
+    this.setLikeContext(this._likes);
 
     return this._element;
+  }
+
+  setLikeContext(res) {
+    if (this._hasLike(res)) {
+      this._likeBtn.classList.add(this._likeBtnIsActiveClass);
+    } else {
+      this._likeBtn.classList.remove(this._likeBtnIsActiveClass);
+    }
+
+    this._element
+      .querySelector(this._likeCounterSelector)
+      .textContent =
+      res.length;
+
+    this._likes = res;
   }
 
   _getElement() {
     const cardElement = document
       .querySelector(this._templateSelector)
-      .content.querySelector(this._contentSelector)
+      .content
+      .querySelector(this._contentSelector)
       .cloneNode(true);
 
     return cardElement;
   }
 
-  _hasLike() {
-    return this._likes.some(obj => obj._id == this._userId);
+  _setCardImage() {
+    const cardImage = this._element.querySelector(this._cardImageSelector);
+
+    cardImage.src = this._cardLink;
+    cardImage.alt = this._cardName;
+
+    this._element
+      .querySelector(this._cardCaptionTextSelector)
+      .textContent =
+      this._cardName;
   }
 
-  _handleLike() {
-    if (this._hasLike()) {
-      this._handleDeleteLike();
+  _hasLike(res) {
+    return res.some(obj => obj._id == this._userId);
+  }
+
+  _toggleLike() {
+    if (this._hasLike(this._likes)) {
+      this._handleDislike(this._cardId);
     } else {
-      this._handleDeleteLike();
+      this._handleLike(this._cardId);
+    }
+  }
+
+  _isOwner() {
+    return this._owner._id === this._userId;
+  }
+
+  _setDeleteContext() {
+    if (!this._isOwner()) {
+      this._deleteBtn.remove();
     }
   }
 
   _setEventListeners() {
-    const likeBtn = document.querySelector(this._likeBtnSelector);
-    const deleteBtn = document.querySelector(this._deleteBtnSelector);
-    const cardImage = document.querySelector(this._cardImageSelector);
+    this._likeBtn = this._element.querySelector(this._likeBtnSelector);
+    this._deleteBtn = this._element.querySelector(this._deleteBtnSelector);
+    this._cardImage = this._element.querySelector(this._cardImageSelector);
 
-    likeBtn.addEventListener("click", () => {
-      this._handleLike();
+    this._likeBtn.addEventListener("click", () => {
+      this._toggleLike();
     });
-    deleteBtn.addEventListener("click", () => {});
-    cardImage.addEventListener("click", () => {});
+    this._deleteBtn.addEventListener("click", () => {});
+    this._cardImage.addEventListener("click", () => {});
   }
 }
 
-function createCardElement (title, link, data) {
-  const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
-  const cardImage = cardTemplateElement.querySelector('.cards__image');
-  const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
-  const likeBtn = cardTemplateElement.querySelector('.cards__like-btn');
-  const likeCounter = cardTemplateElement.querySelector('.cards__like-count');
-  const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
+// function createCardElement (title, link, data) {
+//   const cardTemplateElement = cardTemplate.querySelector('.cards__list-item').cloneNode(true);
+//   const cardImage = cardTemplateElement.querySelector('.cards__image');
+//   const cardTitle = cardTemplateElement.querySelector('.cards__caption-text');
+//   const likeBtn = cardTemplateElement.querySelector('.cards__like-btn');
+//   const likeCounter = cardTemplateElement.querySelector('.cards__like-count');
+//   const delBtn = cardTemplateElement.querySelector('.cards__del-btn');
 
-  const deleteHandler = function() {
-    confirmDeleteSubmitBtn.textContent = 'Удаление...';
-    confirmDeleteSubmitBtn.disabled = true;
+//   const deleteHandler = function() {
+//     confirmDeleteSubmitBtn.textContent = 'Удаление...';
+//     confirmDeleteSubmitBtn.disabled = true;
 
-    deleteCard(data._id)
-      .then(() => {
-        confirmDeleteForm.removeEventListener('submit', deleteHandler);
-        cardTemplateElement.remove();
-        closePopup(objectPopup.confirmDeletePopup);
-        confirmDeleteSubmitBtn.textContent = 'Да';
-      })
-      .catch(err => {
-        console.log(err);
-        confirmDeleteSubmitBtn.textContent = 'Ошибка! Попробуйте ещё раз';
-      })
-      .finally(() => {
-        confirmDeleteSubmitBtn.disabled = false;
-      })
-  }
+//     deleteCard(data._id)
+//       .then(() => {
+//         confirmDeleteForm.removeEventListener('submit', deleteHandler);
+//         cardTemplateElement.remove();
+//         closePopup(objectPopup.confirmDeletePopup);
+//         confirmDeleteSubmitBtn.textContent = 'Да';
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         confirmDeleteSubmitBtn.textContent = 'Ошибка! Попробуйте ещё раз';
+//       })
+//       .finally(() => {
+//         confirmDeleteSubmitBtn.disabled = false;
+//       })
+//   }
 
-  objectPopup.confirmDeletePopup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
-      confirmDeleteForm.removeEventListener('submit', deleteHandler);
-    }
-  })
+//   objectPopup.confirmDeletePopup.addEventListener('click', (evt) => {
+//     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
+//       confirmDeleteForm.removeEventListener('submit', deleteHandler);
+//     }
+//   })
 
-  cardTitle.textContent = title;
-  cardImage.src = link;
-  cardImage.alt = title;
-  likeCounter.textContent = data.likes.length;
+//   cardTitle.textContent = title;
+//   cardImage.src = link;
+//   cardImage.alt = title;
+//   likeCounter.textContent = data.likes.length;
 
-  if (data.owner._id !== userId) {
-    delBtn.remove();
-  }
+//   if (data.owner._id !== userId) {
+//     delBtn.remove();
+//   }
 
-  delBtn.addEventListener('click', (e) => {
-    openPopup(objectPopup.confirmDeletePopup);
-    confirmDeleteForm.addEventListener('submit', deleteHandler);
-  })
+//   delBtn.addEventListener('click', (e) => {
+//     openPopup(objectPopup.confirmDeletePopup);
+//     confirmDeleteForm.addEventListener('submit', deleteHandler);
+//   })
 
-  if (hasLike(data)) {
-    likeBtn.classList.add('cards__like-btn_active');
-  }
+//   if (hasLike(data)) {
+//     likeBtn.classList.add('cards__like-btn_active');
+//   }
 
-  likeBtn.addEventListener('click', (evt) => {
-    if (hasLike(data)) {
-      deleteLike(data._id)
-        .then((card) => {
-          data = card;
-          likeCounter.textContent = card.likes.length;
-          evt.target.classList.remove('cards__like-btn_active');
-        })
-        .catch(err => console.log(err))
-    } else {
-      putLike(data._id)
-        .then((card) => {
-          data = card;
-          likeCounter.textContent = card.likes.length;
-          evt.target.classList.add('cards__like-btn_active');
-        })
-        .catch(err => console.log(err))
-    }
-  });
+//   likeBtn.addEventListener('click', (evt) => {
+//     if (hasLike(data)) {
+//       deleteLike(data._id)
+//         .then((card) => {
+//           data = card;
+//           likeCounter.textContent = card.likes.length;
+//           evt.target.classList.remove('cards__like-btn_active');
+//         })
+//         .catch(err => console.log(err))
+//     } else {
+//       putLike(data._id)
+//         .then((card) => {
+//           data = card;
+//           likeCounter.textContent = card.likes.length;
+//           evt.target.classList.add('cards__like-btn_active');
+//         })
+//         .catch(err => console.log(err))
+//     }
+//   });
 
-  cardImage.addEventListener('click', (evt) => {
-    viewImage.src = evt.target.currentSrc;
-    viewImage.alt = evt.target.alt;
-    viewCaption.textContent = evt.target.alt;
+//   cardImage.addEventListener('click', (evt) => {
+//     viewImage.src = evt.target.currentSrc;
+//     viewImage.alt = evt.target.alt;
+//     viewCaption.textContent = evt.target.alt;
 
-    openPopup (objectPopup.viewPopup);
-  });
+//     openPopup (objectPopup.viewPopup);
+//   });
 
-  return cardTemplateElement;
-}
+//   return cardTemplateElement;
+// }
 
-export function renderCard(data, wrapElement) {
-  const name = data.name;
-  const link = data.link;
-  const card = createCardElement(name, link, data);
+// export function renderCard(data, wrapElement) {
+//   const name = data.name;
+//   const link = data.link;
+//   const card = createCardElement(name, link, data);
 
-  wrapElement.prepend(card);
-}
+//   wrapElement.prepend(card);
+// }

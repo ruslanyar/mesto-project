@@ -1,4 +1,4 @@
-import { apiConfig } from './constants.js'
+import { apiConfig } from '../utils/constants'
 
 export default class Api {
   constructor({ baseURL, headers } = apiConfig) {

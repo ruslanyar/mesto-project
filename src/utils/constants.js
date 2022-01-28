@@ -23,6 +23,9 @@ export const cardConfig = {
   likeBtnSelector: '.cards__like-btn',
   deleteBtnSelector: '.cards__del-btn',
   cardImageSelector: '.cards__image',
+  likeBtnIsActiveClass: 'cards__like-btn_active',
+  likeCounterSelector: '.cards__like-count',
+  cardCaptionTextSelector: '.cards__caption-text',
 };
 
 export const objectPopup = {
