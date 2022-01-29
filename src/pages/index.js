@@ -1,6 +1,6 @@
 import './index.css';
 
-import { enableValidation } from '../components/validation';
+import { enableValidation } from '../components/FormValidator';
 
 import Api from '../components/Api';
 import Card from '../components/Card';
