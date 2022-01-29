@@ -6,7 +6,7 @@ export default class FormValidator {
       submitButtonSelector,
       disabledButtonClass,
       inputErrorClass,
-      errorClass,
+      errorIsActiveClass,
     },
     formElement
   ) {
@@ -15,7 +15,7 @@ export default class FormValidator {
     this._submitButtonSelector = submitButtonSelector;
     this._disabledButtonClass = disabledButtonClass;
     this._inputErrorClass = inputErrorClass;
-    this._errorClass = errorClass;
+    this._errorIsActiveClass = errorIsActiveClass;
     this._formElement = formElement;
   }
 
@@ -42,19 +42,23 @@ export default class FormValidator {
   }
 
   _showInputError(inputElement, errorMessage) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
 
     inputElement.classList.add(this._inputErrorClass);
-    errorElement.classList.add(this._errorClass);
+    errorElement.classList.add(this._errorIsActiveClass);
     errorElement.textContent = errorMessage;
   }
 
   _hideInputError(inputElement) {
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
 
     inputElement.classList.remove(this._inputErrorClass);
-    errorElement.classList.remove(this._errorClass);
-    errorElement.textContent = '';
+    errorElement.classList.remove(this._errorIsActiveClass);
+    errorElement.textContent = "";
   }
 
   _checkInputValidity(inputElement) {
@@ -68,7 +72,7 @@ export default class FormValidator {
     }
   }
 
-  _hasInvalidInput (inputList) {
+  _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
@@ -77,18 +81,13 @@ export default class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._.disabledButtonClass);
-      buttonElement.setAttribute('disabled', true);
+      buttonElement.setAttribute("disabled", true);
     } else {
       buttonElement.classList.remove(this._.disabledButtonClass);
-      buttonElement.removeAttribute('disabled');
+      buttonElement.removeAttribute("disabled");
     }
   }
 }
-
-
-
-
-
 
 // const showInputError = (formElement, inputElement, errorMessage, configValidate) => {
 //   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);

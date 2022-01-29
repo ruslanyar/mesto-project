@@ -23,13 +23,17 @@ export const configValidate = {
   submitButtonSelector: '.form__submit-btn',
   disabledButtonClass: 'form__submit-btn_disabled',
   inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active',
+  errorIsActiveClass: 'form__input-error_active',
 }
 
 export const configPopup = {
   popupSelector: '.popup',
   popupIsOpenedClass: 'popup_opened',
   closeBtnClass: 'popup__close-button',
+  imageSelector: '.popup__view-image',
+  imageCaptionSelector: '.popup__view-caption',
+  formSelector: '.form',
+  inputSelector: '.form__input',
 }
 
 

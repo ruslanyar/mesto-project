@@ -1,18 +1,5 @@
-import {
-  ESC_KEY,
-  popupsWrapper,
-  objectPopup,
-  configModal,
-  configValidate,
-  wrapElement,
-  editAvatarForm,
-  editProfileForm,
-  addCardForm,
-} from './constants.js';
 
-import { openPopup, closePopup } from './modal.js';
-import { renderCard } from './Card.js';
-import { userId } from '../pages/index.js';
+
 
 const inputEditAvatar = editAvatarForm.querySelector('.form__input');
 
