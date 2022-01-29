@@ -1,11 +1,11 @@
 import './index.css';
 
-import { enableValidation } from '../components/FormValidator';
-
 import Api from '../components/Api';
 import Card from '../components/Card';
 import Section from '../components/Section';
-import { cardConfig, configModal, configValidate } from '../utils/constants';
+import FormValidator from '../components/FormValidator';
+
+import { cardConfig, configModal, configValidate, configPopup } from '../utils/constants';
 
 let userId;
 
@@ -47,7 +47,9 @@ Promise.all([api.getUser('/users/me'), api.getInitialCards('/cards')])
   })
   .catch(err => console.log(err))
 
-enableValidation(configValidate);
+
+
+
 
 // configModal.openEditPopupBtnElement.addEventListener('click', openEditProfilePopupHandler);
 // configModal.openAddPopupBtnElement.addEventListener('click', () => openPopup(objectPopup.addCardPopup));
