@@ -1,5 +1,5 @@
 export default class Popup {
-  constructor({ popupSelector, popupIsOpenedClass, closeBtnClass }) {
+  constructor({ popupIsOpenedClass, closeBtnClass }, popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._popupIsOpenedClass = popupIsOpenedClass;
     this._closeBtnClass = closeBtnClass;

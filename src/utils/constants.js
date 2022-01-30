@@ -27,7 +27,6 @@ export const configValidate = {
 }
 
 export const configPopup = {
-  popupSelector: '.popup',
   popupIsOpenedClass: 'popup_opened',
   closeBtnClass: 'popup__close-button',
   imageSelector: '.popup__view-image',
@@ -36,17 +35,15 @@ export const configPopup = {
   inputSelector: '.form__input',
 }
 
-
-
-
-export const objectPopup = {
-  editProfilePopup: popupsWrapper.querySelector('.popup_type_edit-profile'),
-  addCardPopup: popupsWrapper.querySelector('.popup_type_add-cards'),
-  viewPopup: popupsWrapper.querySelector('.popup_type_view'),
-  editAvatarPopup: popupsWrapper.querySelector('.popup_type_edit-avatar'),
-  confirmDeletePopup: popupsWrapper.querySelector('.popup_type_confirm-delete'),
+export const configProfile = {
+  profileNameSelector: '.profile__name',
+  profileJobSelector: '.profile__job',
+  profileAvatarSelector: '.profile__avatar',
 }
 
-
-
-
+export const editProfileButton = document.querySelector('.profile__edit-button');
+export const addCardButton = document.querySelector('.profile__add-button');
+export const editAvatar = document.querySelector('.profile__overlay');
+export const editProfileFormElement = document.forms.profile;
+export const addCardFormElement = document.forms.addCard;
+export const editAvatarFormElement = document.forms.avatar;

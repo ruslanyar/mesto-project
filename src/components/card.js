@@ -126,7 +126,9 @@ export default class Card {
       this._toggleLike();
     });
     this._deleteBtn.addEventListener("click", () => {});
-    this._cardImage.addEventListener("click", () => {});
+    this._cardImage.addEventListener("click", () => {
+      this._handleCardImageClick();
+    });
   }
 }
 

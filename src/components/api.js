@@ -1,7 +1,5 @@
-import { apiConfig } from '../utils/constants'
-
 export default class Api {
-  constructor({ baseURL, headers } = apiConfig) {
+  constructor({ baseURL, headers }) {
     this._baseURL = baseURL;
     this._headers = headers;
   }
@@ -18,9 +16,9 @@ export default class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  patchProfile({ userName, userAbout }, serviceUrl) {
+  patchProfile(userName, userAbout, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}`, {       // /users/me
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: userName,
@@ -31,7 +29,7 @@ export default class Api {
 
   patchAvatar(userAvatarLink, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}`, {       // /users/me/avatar
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: userAvatarLink,
@@ -39,10 +37,10 @@ export default class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  postNewCard({ cardName, cardLink }, serviceUrl) {
+  postNewCard(cardName, cardLink, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}`, {       // /cards
-      method: "POST",
-      headers: apiConfig.headers,
+      method: 'POST',
+      headers: this._headers,
       body: JSON.stringify({
         name: cardName,
         link: cardLink,
@@ -52,21 +50,21 @@ export default class Api {
 
   deleteCard(cardId, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}/${cardId}`, {       // /cards
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then((res) => this._checkResponse(res));
   }
 
   putLike(cardId, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}/${cardId}`, {       // /cards/likes
-      method: "PUT",
+      method: 'PUT',
       headers: this._headers,
     }).then((res) => this._checkResponse(res));
   }
 
   deleteLike(cardId, serviceUrl) {
     return fetch(`${this._baseURL}${serviceUrl}/${cardId}`, {       // /cards/likes
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then((res) => this._checkResponse(res));
   }

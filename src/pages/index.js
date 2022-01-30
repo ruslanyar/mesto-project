@@ -4,61 +4,142 @@ import Api from '../components/Api';
 import Card from '../components/Card';
 import Section from '../components/Section';
 import FormValidator from '../components/FormValidator';
+import UserInfo from '../components/UserInfo';
+import PopupWithForm from '../components/PopupWithForm';
+import PopupWithImage from '../components/PopupWithImage';
 
-import { cardConfig, configModal, configValidate, configPopup } from '../utils/constants';
+import {
+  cardConfig,
+  configValidate,
+  configPopup,
+  configProfile,
+  apiConfig,
+  editProfileButton,
+  addCardButton,
+  editAvatar,
+} from '../utils/constants';
 
-let userId;
+// API
+const api = new Api(apiConfig);
 
-const api = new Api();
+// USER INFO
+const userInfo = new UserInfo(configProfile, {
+  handleGetUser: () => api.getUser('/users/me'),
+  handleSetUser: (name, about) => api.patchProfile(name, about, '/users/me'),
+  handleSetAvatar: (avatarLink) => api.patchAvatar(avatarLink, '/users/me/avatar'),
+});
 
-Promise.all([api.getUser('/users/me'), api.getInitialCards('/cards')])
+// EDIT PROFILE
+const editProfilePopup = new PopupWithForm(
+  configPopup,
+  {
+    handleFormSubmit: ({ firstName, job }) => {
+      userInfo.setUserInfo(firstName, job).then((userData) => {
+          userInfo.updateUserInfo(userData);
+          editProfilePopup.close();
+        })
+        .catch((err) => console.log(err))
+    },
+  },
+  '.popup_type_edit-profile'
+);
+
+editProfilePopup.setEventListeners();
+
+editProfileButton.addEventListener('click', () => {
+  editProfilePopup.open();
+});
+
+// AVATAR POPUP
+const avatarPopup = new PopupWithForm(
+  configPopup,
+  {
+    handleFormSubmit: ({ 'profile-avatar': avatar }) => {
+      userInfo.setAvatar(avatar)
+       .then((data) => {
+         userInfo.updateUserInfo(data);
+       })
+       .then(() => {
+        avatarPopup.close();
+       })
+       .catch((err) => console.log(err))
+    }
+  },
+  '.popup_type_edit-avatar'
+);
+
+avatarPopup.setEventListeners();
+
+editAvatar.addEventListener('click', () => {
+  avatarPopup.open();
+})
+
+// ADD NEW CARD POPUP
+const addNewCardPopup = new PopupWithForm(
+  configPopup,
+  {
+    handleFormSubmit: ({ placeName, link }) => {
+      console.log(placeName, link);
+      api.postNewCard(placeName, link, '/cards')
+        .then((cardData) => {
+          section.addItem(cardData)
+        })
+        .catch((err) => console.log(err))
+    }
+  },
+  '.popup_type_add-cards'
+);
+
+addNewCardPopup.setEventListeners();
+
+addCardButton.addEventListener('click', () => {
+  addNewCardPopup.open();
+})
+
+// POPUP WITH IMAGE
+const viewImagePopup = new PopupWithImage(configPopup, '.popup_type_view');
+viewImagePopup.setEventListeners();
+
+// RENDER INITIAL CARDS
+const section = new Section(
+  {
+    renderer: (item) => {
+      const card = new Card(
+        item,
+        cardConfig,
+        {
+          handleLike: (cardId) => {
+            api.putLike(cardId, '/cards/likes')
+              .then((cardData) => card.setLikeContext(cardData.likes))
+              .catch((err) => console.log(err))
+          },
+          handleDislike: (cardId) => {
+            api.deleteLike(cardId, '/cards/likes')
+              .then((cardData) => card.setLikeContext(cardData.likes))
+              .catch((err) => console.log(err))
+          },
+          handleCardImageClick: () => {
+            viewImagePopup.open(item.link, item.name);
+          },
+          handleDeleteClick: () => {},
+        },
+        userInfo.getUserId()
+      );
+      return card.generate();
+    },
+  },
+  '.cards__list'
+);
+
+[...document.forms].forEach((formElement) => {
+  const formValidator = new FormValidator(configValidate, formElement);
+  formValidator.enableValidation();
+});
+
+// ---------------------
+Promise.all([userInfo.getUserInfo(), api.getInitialCards('/cards')])
   .then(([userData, cardsArray]) => {
-    userId = userData._id;
-
-    const section = new Section({
-      items: cardsArray,
-      renderer: (cardJson) => {
-        const card = new Card(
-          cardJson,
-          cardConfig,
-          {
-            handleLike: (cardId) => {
-              api.putLike(cardId, '/cards/likes')
-                .then((res) => card.setLikeContext(res.likes))
-                .catch((err) => console.log(err));
-            },
-            handleDislike: (cardId) => {
-              api.deleteLike(cardId, '/cards/likes')
-                .then((res) => card.setLikeContext(res.likes))
-                .catch((err) => console.log(err));
-            }
-          }, userId);
-
-          const cardElement = card.generate();
-          section.addItem(cardElement);
-      }
-    }, '.cards__list');
-
-    section.renderItems();
-
-    configModal.profileNameElement.textContent = userData.name;
-    configModal.profileJobElement.textContent = userData.about;
-    configModal.avatarImage.src = userData.avatar;
+    userInfo.updateUserInfo(userData);
+    section.renderItems(cardsArray);
   })
-  .catch(err => console.log(err))
-
-
-
-
-
-// configModal.openEditPopupBtnElement.addEventListener('click', openEditProfilePopupHandler);
-// configModal.openAddPopupBtnElement.addEventListener('click', () => openPopup(objectPopup.addCardPopup));
-// configModal.openAvatarPopupElement.addEventListener('click', () => openPopup(objectPopup.editAvatarPopup));
-// editProfileForm.addEventListener('submit', (evt) => submitEditProfileFormHandler(evt));
-// addCardForm.addEventListener('submit', (evt) => submitAddCardFormHandler(evt));
-// editAvatarForm.addEventListener('submit', (evt) => submitEditAvatarFormHandler(evt));
-// popups.forEach((popup) => {
-//   popup.addEventListener('click', (evt) => {
-//     closePopupHandler(evt);
-//   });
-// });
+  .catch((err) => console.log(err));
