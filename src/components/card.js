@@ -96,7 +96,7 @@ export default class Card {
   }
 
   _hasLike(res) {
-    return res.some(obj => obj._id == this._userId);
+    return res.some(obj => obj._id === this._userId);
   }
 
   _toggleLike() {
@@ -125,7 +125,9 @@ export default class Card {
     this._likeBtn.addEventListener("click", () => {
       this._toggleLike();
     });
-    this._deleteBtn.addEventListener("click", () => {});
+    this._deleteBtn.addEventListener("click", () => {
+      this._handleDeleteClick(this._element, this._cardId);
+    });
     this._cardImage.addEventListener("click", () => {
       this._handleCardImageClick();
     });
@@ -213,12 +215,4 @@ export default class Card {
 //   });
 
 //   return cardTemplateElement;
-// }
-
-// export function renderCard(data, wrapElement) {
-//   const name = data.name;
-//   const link = data.link;
-//   const card = createCardElement(name, link, data);
-
-//   wrapElement.prepend(card);
 // }

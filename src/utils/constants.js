@@ -15,7 +15,7 @@ export const cardConfig = {
   likeBtnIsActiveClass: 'cards__like-btn_active',
   likeCounterSelector: '.cards__like-count',
   cardCaptionTextSelector: '.cards__caption-text',
-};
+}
 
 export const configValidate = {
   formSelector: '.form',
@@ -44,6 +44,3 @@ export const configProfile = {
 export const editProfileButton = document.querySelector('.profile__edit-button');
 export const addCardButton = document.querySelector('.profile__add-button');
 export const editAvatar = document.querySelector('.profile__overlay');
-export const editProfileFormElement = document.forms.profile;
-export const addCardFormElement = document.forms.addCard;
-export const editAvatarFormElement = document.forms.avatar;

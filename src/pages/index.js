@@ -46,10 +46,6 @@ const editProfilePopup = new PopupWithForm(
 
 editProfilePopup.setEventListeners();
 
-editProfileButton.addEventListener('click', () => {
-  editProfilePopup.open();
-});
-
 // AVATAR POPUP
 const avatarPopup = new PopupWithForm(
   configPopup,
@@ -70,19 +66,15 @@ const avatarPopup = new PopupWithForm(
 
 avatarPopup.setEventListeners();
 
-editAvatar.addEventListener('click', () => {
-  avatarPopup.open();
-})
-
 // ADD NEW CARD POPUP
 const addNewCardPopup = new PopupWithForm(
   configPopup,
   {
     handleFormSubmit: ({ placeName, link }) => {
-      console.log(placeName, link);
       api.postNewCard(placeName, link, '/cards')
         .then((cardData) => {
-          section.addItem(cardData)
+          section.addItem(cardData);
+          addNewCardPopup.close();
         })
         .catch((err) => console.log(err))
     }
@@ -92,13 +84,27 @@ const addNewCardPopup = new PopupWithForm(
 
 addNewCardPopup.setEventListeners();
 
-addCardButton.addEventListener('click', () => {
-  addNewCardPopup.open();
-})
-
 // POPUP WITH IMAGE
 const viewImagePopup = new PopupWithImage(configPopup, '.popup_type_view');
 viewImagePopup.setEventListeners();
+
+// DELETE CONFIRMATION POPUP
+const confirmPopup = new PopupWithForm(
+  configPopup,
+  {
+    handleFormSubmit: () => {
+      api.deleteCard(confirmPopup.cardId, '/cards')
+        .then(() => {
+          confirmPopup.cardElement.remove();
+          confirmPopup.close();
+        })
+        .catch((err) => console.log(err))
+    }
+  },
+  '.popup_type_confirm-delete'
+);
+
+confirmPopup.setEventListeners();
 
 // RENDER INITIAL CARDS
 const section = new Section(
@@ -121,7 +127,11 @@ const section = new Section(
           handleCardImageClick: () => {
             viewImagePopup.open(item.link, item.name);
           },
-          handleDeleteClick: () => {},
+          handleDeleteClick: (cardElement, cardId) => {
+            confirmPopup.cardElement = cardElement;
+            confirmPopup.cardId = cardId;
+            confirmPopup.open();
+          },
         },
         userInfo.getUserId()
       );
@@ -134,6 +144,19 @@ const section = new Section(
 [...document.forms].forEach((formElement) => {
   const formValidator = new FormValidator(configValidate, formElement);
   formValidator.enableValidation();
+});
+
+// EVENT LISTENERS
+editProfileButton.addEventListener('click', () => {
+  editProfilePopup.open();
+});
+
+editAvatar.addEventListener('click', () => {
+  avatarPopup.open();
+});
+
+addCardButton.addEventListener('click', () => {
+  addNewCardPopup.open();
 });
 
 // ---------------------
