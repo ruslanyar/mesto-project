@@ -97,6 +97,8 @@ const confirmPopup = new PopupWithForm(
         .then(() => {
           confirmPopup.cardElement.remove();
           confirmPopup.close();
+          confirmPopup.cardElement = '';
+          confirmPopup.cardId = '';
         })
         .catch((err) => console.log(err))
     }
@@ -148,6 +150,11 @@ const section = new Section(
 
 // EVENT LISTENERS
 editProfileButton.addEventListener('click', () => {
+  userInfo.getUserInfo()
+    .then((userData) => {
+      editProfilePopup.setInputValue('firstName', userData.name);
+      editProfilePopup.setInputValue('job', userData.about);
+    })
   editProfilePopup.open();
 });
 

@@ -1,28 +1,3 @@
-
-
-
-const inputEditAvatar = editAvatarForm.querySelector('.form__input');
-
-export function keyHandler(evt) {
-  if (evt.key === ESC_KEY) {
-    const popupOpened = popupsWrapper.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
-export function openEditProfilePopupHandler() {
-  configModal.inputNameElement.value = configModal.profileNameElement.textContent;
-  configModal.inputJobElement.value = configModal.profileJobElement.textContent;
-
-  openPopup(objectPopup.editProfilePopup);
-}
-
-export function closePopupHandler(evt) {
-  if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close-button')) {
-    closePopup(evt.currentTarget);
-  }
-}
-
 export function submitEditProfileFormHandler(evt) {
   evt.submitter.textContent = 'Сохранение...';
   evt.submitter.disabled = true;
@@ -80,7 +55,3 @@ export function submitEditAvatarFormHandler(evt) {
       evt.submitter.disabled = false;
     })
 }
-
-// export function hasLike(card) {
-//   return card.likes.some(obj => obj._id == userId)
-// }
