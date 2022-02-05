@@ -18,6 +18,11 @@ import {
   addCardButton,
   editAvatar,
 } from '../utils/constants';
+import {
+  setSubmitterDefaultStatus,
+  setSubmitterLoadingStatus,
+  setSubmitterErrorStatus
+} from '../utils/utils';
 
 // API
 const api = new Api(apiConfig);
@@ -31,14 +36,22 @@ const userInfo = new UserInfo(configProfile, {
 
 // EDIT PROFILE
 const editProfilePopup = new PopupWithForm(
-  configPopup,
-  {
-    handleFormSubmit: ({ firstName, job }) => {
-      userInfo.setUserInfo(firstName, job).then((userData) => {
-          userInfo.updateUserInfo(userData);
+  configPopup, {
+    handleFormSubmit: ({
+      firstName,
+      job
+    }) => {
+      setSubmitterLoadingStatus(editProfilePopup.submitButton);
+      userInfo.setUserInfo(firstName, job)
+        .then((userData) => userInfo.updateUserInfo(userData))
+        .then(() => {
           editProfilePopup.close();
+          setSubmitterDefaultStatus(editProfilePopup.submitButton);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+          setSubmitterErrorStatus(editProfilePopup.submitButton);
+        });
     },
   },
   '.popup_type_edit-profile'
@@ -48,17 +61,23 @@ editProfilePopup.setEventListeners();
 
 // AVATAR POPUP
 const avatarPopup = new PopupWithForm(
-  configPopup,
-  {
-    handleFormSubmit: ({ 'profile-avatar': avatar }) => {
+  configPopup, {
+    handleFormSubmit: ({
+      'profile-avatar': avatar
+    }) => {
+      setSubmitterLoadingStatus(avatarPopup.submitButton);
       userInfo.setAvatar(avatar)
-       .then((data) => {
-         userInfo.updateUserInfo(data);
-       })
-       .then(() => {
-        avatarPopup.close();
-       })
-       .catch((err) => console.log(err))
+        .then((data) => {
+          userInfo.updateUserInfo(data);
+        })
+        .then(() => {
+          avatarPopup.close();
+          setSubmitterDefaultStatus(avatarPopup.submitButton);
+        })
+        .catch((err) => {
+          console.log(err);
+          setSubmitterErrorStatus(avatarPopup.submitButton);
+        });
     }
   },
   '.popup_type_edit-avatar'
@@ -68,15 +87,22 @@ avatarPopup.setEventListeners();
 
 // ADD NEW CARD POPUP
 const addNewCardPopup = new PopupWithForm(
-  configPopup,
-  {
-    handleFormSubmit: ({ placeName, link }) => {
+  configPopup, {
+    handleFormSubmit: ({
+      placeName,
+      link
+    }) => {
+      setSubmitterLoadingStatus(addNewCardPopup.submitButton);
       api.postNewCard(placeName, link, '/cards')
-        .then((cardData) => {
-          section.addItem(cardData);
+        .then((cardData) => section.addItem(cardData))
+        .then(() => {
           addNewCardPopup.close();
+          setSubmitterDefaultStatus(addNewCardPopup.submitButton);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+          setSubmitterErrorStatus(addNewCardPopup.submitButton);
+        });
     }
   },
   '.popup_type_add-cards'
@@ -90,17 +116,21 @@ viewImagePopup.setEventListeners();
 
 // DELETE CONFIRMATION POPUP
 const confirmPopup = new PopupWithForm(
-  configPopup,
-  {
+  configPopup, {
     handleFormSubmit: () => {
+      setSubmitterLoadingStatus(confirmPopup.submitButton)
       api.deleteCard(confirmPopup.cardId, '/cards')
         .then(() => {
           confirmPopup.cardElement.remove();
           confirmPopup.close();
-          confirmPopup.cardElement = '';
-          confirmPopup.cardId = '';
+          setSubmitterDefaultStatus(confirmPopup.submitButton);
+          confirmPopup.cardElement = null;
+          confirmPopup.cardId = null;
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err);
+          setSubmitterErrorStatus(confirmPopup.submitButton);
+        })
     }
   },
   '.popup_type_confirm-delete'
@@ -109,13 +139,11 @@ const confirmPopup = new PopupWithForm(
 confirmPopup.setEventListeners();
 
 // RENDER INITIAL CARDS
-const section = new Section(
-  {
+const section = new Section({
     renderer: (item) => {
       const card = new Card(
         item,
-        cardConfig,
-        {
+        cardConfig, {
           handleLike: (cardId) => {
             api.putLike(cardId, '/cards/likes')
               .then((cardData) => card.setLikeContext(cardData.likes))

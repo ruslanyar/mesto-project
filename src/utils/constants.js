@@ -33,6 +33,7 @@ export const configPopup = {
   imageCaptionSelector: '.popup__view-caption',
   formSelector: '.form',
   inputSelector: '.form__input',
+  submitBtnSelector: '.form__submit-btn',
 }
 
 export const configProfile = {
