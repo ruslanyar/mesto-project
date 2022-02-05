@@ -182,15 +182,19 @@ editProfileButton.addEventListener('click', () => {
     .then((userData) => {
       editProfilePopup.setInputValue('firstName', userData.name);
       editProfilePopup.setInputValue('job', userData.about);
-    })
+    });
+
+  setSubmitterDefaultStatus(editProfilePopup.submitButton);
   editProfilePopup.open();
 });
 
 editAvatar.addEventListener('click', () => {
+  setSubmitterDefaultStatus(avatarPopup.submitButton);
   avatarPopup.open();
 });
 
 addCardButton.addEventListener('click', () => {
+  setSubmitterDefaultStatus(addNewCardPopup.submitButton);
   addNewCardPopup.open();
 });
 

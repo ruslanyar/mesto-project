@@ -65,10 +65,8 @@ export default class Card {
       this._likeBtn.classList.remove(this._likeBtnIsActiveClass);
     }
 
-    this._element
-      .querySelector(this._likeCounterSelector)
-      .textContent =
-      res.length;
+    const likeCounter = this._element.querySelector(this._likeCounterSelector);
+    likeCounter.textContent = res.length;
 
     this._likes = res;
   }

@@ -39,6 +39,8 @@ export default class FormValidator {
         this._toggleButtonState(inputList, buttonElement);
       });
     });
+
+    
   }
 
   _showInputError(inputElement, errorMessage) {
